@@ -154,7 +154,7 @@ rem get the name of the application. I have to save them all in "exportparas" fi
 	
 	:setpasswrod
 	
-	if not [%certificate_pass%] == [ echo The certificates password is loaded from certificates directory.
+	if not [%certificate_pass%] == [] echo The certificates password is loaded from certificates directory.
 	set /p test_pass=Do you need to change the Certificate files passwords? Enter your new password:%=%
 	
 	if ["%test_pass%"]==[""] if ["%certificate_pass%"]==[""] (echo You should enter your passwrod! 
