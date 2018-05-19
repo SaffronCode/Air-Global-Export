@@ -72,3 +72,14 @@ Do you need to change your Android certificate file? enter the new target or pas
 
 
 <p>
+
+## <p dir="rtl">خطا های رایج</p>
+
+<p dir="rtl">
+        به صورت کلی اگر متوجه شدید خروجی نرم افزار ایجاد نشده امّا فایل ExporterGenerator.bat بسته می شود، خطایی رخ داده که برای مشاهده متن خطا باید به روش زیر ExporterGenerator.bat را باز کنید:<br><br>
+        1- دکمه ی shift کی برد را نگه داشته و کنار فایل ExporterGenerator.bat روی فولدر جاری راست کلیک  نمایید. گزینه ای با عنوان open command window here در منوی باز شده ظاهر می شود که cmd را از همان آدرس باز می کند.<br>
+        (این کار معادل است با اینکه cmd را باز کنید و به کمک دستور cd مسیر را به فولدر پروژه و فولدر ExporterGenerator.bat انتقال دهید)
+        2- در محیط cmd باز شده ExporterGenerator.bat را تایپ و گزینه Enter را فشار دهید تا ExporterGenerator.bat اجرا شود.<br>
+        3- سپس به همان ترتیب قبل کار را پیش ببرید و حالا اگر خطایی رخ دهد در همان پنجره آن را می توانید مشاهده و به ترتیب اعلام شده آن را رفع کنید.<br><br>
+        
+<p>
