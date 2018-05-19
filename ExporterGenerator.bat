@@ -14,8 +14,18 @@ if exist "%passwordfile%" (
 	set /p password=<"%passwordfile%"
 )
 set certificate_pass=%password%
-
-if not exist exportparams ( goto environment_vars)
+if not exist exportparams (
+	if ["%aircompiler%"]==[""] (
+		goto environment_vars
+	) else (
+		set /p edit_env_var=Do you need to update your environment variables to? press 1 to proceed.%=%
+		if [%edit_env_var%]==1 (
+			goto environment_vars
+		) else (
+			goto setswfname
+		)
+	)
+)
 
 echo Export properties founded
 set goto_edit_exporter=2
