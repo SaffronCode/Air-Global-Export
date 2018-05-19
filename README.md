@@ -44,6 +44,9 @@ This is a package of command saved on a bat file to help you export your swf pro
 </p><p dir="ltr">2-Enter export file name:</p><p dir="rtl">
 <br>نامی که می خواهید فایل های خروجی با آن نام ذخیره شوند. اگر فیلد خالی بماند از نام پروژه استفاده می شود.<br><br>
 </p><p dir="ltr">
+  
+##
+ 
 3-Enter the apple development mobileprovision file name without extensnion:<br>
 4-Enter the apple production mobileprovision file name without extensnion:<br>
 5-Enter the apple adhoc mobileprovision file name without extensnion:<br></p><p dir="rtl">
