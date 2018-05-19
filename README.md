@@ -7,7 +7,12 @@ This is a package of command saved on a bat file to help you export your swf pro
 
 <p dir="rtl">
 • فایل bat را کنار فایل swf پروژه خود کپی کنید. فولدر آیکون ها و فایل های -app.xml باید در همان فولدر باشند.<br>
-• در اولین اجرا فایل تمام تنظیمات مورد نیاز برای خروجی را از شما دریافت می کند. فایل را اجرا کرده و طبق توضیحات پیش روی
+• در اولین اجرا فایل تمام تنظیمات مورد نیاز برای خروجی را از شما دریافت می کند. فایل را اجرا کرده و طبق توضیحات پیش روی<br>
+  <p align="center">
+    <img src="https://github.com/SaffronCode/Air-Global-Export/blob/Documentation/Doc/WhereToSet.JPG?raw=true" dir="center" alt="نحوه ی قرار گیری فایل ExporterGenerator.bat در کنار فایل های دیگر پروژه"/><br><p align="center" dir="rtl">نحوه قرار گیری فایل ExporterGenerator.bat در کنار فایل های دیگر پروژه
+</p></p><br><br>
+
+
 <p dir="ltr">1- aircompiler:<br></p><p dir="rtl">
 برای برنامه نویسانی که با بیش از یک پروژه سرو کار دارند گزینه ی خوبی است که آدرس کامپایلر ادوب ایر خود را یک بار ثبت کنند تا در صورت بروز رسانی کامپایلر، تمام خروجی ها به کمک نسخه ی جدید ایر ایجاد شود. این متغیر از شما آدرس کامپایلر ادوب ایر ذخیره شده روی سیستم عامل شما را درخواست می کند. آدرس فولدر اصلی را وارد کرده و Enter را فشار دهید.<br>
 مثال: D:\air\AIRSDK_26<br><br>
