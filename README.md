@@ -12,6 +12,8 @@ This is a package of command saved on a bat file to help you export your swf pro
     <img src="https://github.com/SaffronCode/Air-Global-Export/blob/Documentation/Doc/WhereToSet.JPG?raw=true" dir="center" alt="نحوه ی قرار گیری فایل ExporterGenerator.bat در کنار فایل های دیگر پروژه"/><br><p align="center" dir="rtl">نحوه قرار گیری فایل ExporterGenerator.bat در کنار فایل های دیگر پروژه
 </p></p><br><br>
 
+(در صورتی که کامپایلر سیستم عامل شما مشخص شده باشد، اولین بار از شما سوال می پرسد که آیا می خواهید تنظیمات سیستم عامل را تغییر دهید؟<br>Do you need to update your environment variables to? press 1 to proceed.)
+
 ## <p dir="rtl">تنظیمات عمومی-یک بار برای تمام پروژه ها</p>
 
 <p dir="ltr">1- aircompiler:<br></p><p dir="rtl">
