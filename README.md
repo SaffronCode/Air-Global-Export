@@ -30,9 +30,10 @@ This is a package of command saved on a bat file to help you export your swf pro
 
 </p><p dir="ltr">4-Enter export file name:</p><p dir="rtl">
 <br>نامی که می خواهید فایل های خروجی با آن نام ذخیره شوند. اگر فیلد خالی بماند از نام پروژه استفاده می شود.<br><br>
-</p><p dir="ltr">5-Enter the apple development mobileprovision file name without extensnion:<br>
-</p><p dir="ltr">6-Enter the apple production mobileprovision file name without extensnion:<br>
-</p><p dir="ltr">7-Enter the apple adhoc mobileprovision file name without extensnion:<br></p><p dir="rtl">
+</p><p dir="ltr">
+5-Enter the apple development mobileprovision file name without extensnion:<br>
+6-Enter the apple production mobileprovision file name without extensnion:<br>
+7-Enter the apple adhoc mobileprovision file name without extensnion:<br></p><p dir="rtl">
 فایل های mobileprovision برای خروجی های iOS. تمام این فایل ها باید در کنار فایل swf اصلی قرار داده شده باشند و نام آنها بدون پسوند وارد شود. (اگر خروجی iOS ندارید، آنها را خالی رها کنید)<br><br>
 
 </p><p dir="ltr">8-Do you have local native folder? enter its name or pass this questin blank:<br></p><p dir="rtl">
