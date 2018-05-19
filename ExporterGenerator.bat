@@ -15,7 +15,7 @@ if exist "%passwordfile%" (
 )
 set certificate_pass=%password%
 if not exist exportparams (
-	if ["%aircompiler%"]==[ (
+	if ["%aircompiler%"]==[""] (
 		goto environment_vars
 	) else (
 		set /p edit_env_var=Do you need to update your environment variables to? press 1 to proceed.%=%
