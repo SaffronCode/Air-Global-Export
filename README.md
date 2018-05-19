@@ -12,6 +12,7 @@ This is a package of command saved on a bat file to help you export your swf pro
     <img src="https://github.com/SaffronCode/Air-Global-Export/blob/Documentation/Doc/WhereToSet.JPG?raw=true" dir="center" alt="نحوه ی قرار گیری فایل ExporterGenerator.bat در کنار فایل های دیگر پروژه"/><br><p align="center" dir="rtl">نحوه قرار گیری فایل ExporterGenerator.bat در کنار فایل های دیگر پروژه
 </p></p><br><br>
 
+## <p dir="rtl">تنظیمات عمومی-یک بار برای تمام پروژه ها</p>
 
 <p dir="ltr">1- aircompiler:<br></p><p dir="rtl">
 برای برنامه نویسانی که با بیش از یک پروژه سرو کار دارند گزینه ی خوبی است که آدرس کامپایلر ادوب ایر خود را یک بار ثبت کنند تا در صورت بروز رسانی کامپایلر، تمام خروجی ها به کمک نسخه ی جدید ایر ایجاد شود. این متغیر از شما آدرس کامپایلر ادوب ایر ذخیره شده روی سیستم عامل شما را درخواست می کند. آدرس فولدر اصلی را وارد کرده و Enter را فشار دهید.<br>
@@ -21,6 +22,9 @@ This is a package of command saved on a bat file to help you export your swf pro
 </p><p dir="ltr">2-My global natives folder: <br></p><p dir="rtl">
 ممکن است از تعداد زیادی فایل ane استفاده کرده باشید. برای اینکه بعد ها در بروز رسانی این کتابخانه ها در نرم افزار های مختلفتان به مشکل نخورید می توانید مانند کامپایلر یه فولدر را به آن اختصاص داده و از دفعات بعدی مقداری برای آن وارد نکنید تا از فولدر اصلی فایل های native ثبت شده استفاده شود.<br>
 <br>
+  
+## <p dir="rtl">تنظیمات اختصاصی-مختص پروژه جاری</p>
+
 </p><p dir="ltr">3-Enter the SWF file name without extenstion:</p><p dir="rtl">وارد کردن نام فایل swf بدون وارد کردن پسوند فایل<br>
 مثال:myProject<br><br>
 
