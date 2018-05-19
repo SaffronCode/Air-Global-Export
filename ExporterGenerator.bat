@@ -38,7 +38,7 @@ rem set the air compiler
 	set new_aircompiler=.
 	set /p new_aircompiler=aircompiler: %=%
 	echo Please wait... %new_aircompiler%
-	if not [%new_aircompiler%]==[.] ( if not [%new_aircompiler%]==[ (setx aircompiler "%new_aircompiler%") ) else (echo Compiler directory not changed)
+	if not [%new_aircompiler%]==[.] ( if not [%new_aircompiler%]==[ (setx aircompiler "%new_aircompiler%") ) else (echo Compiler directory not change)
 	rem cls
 echo.
 rem set the global_native_folder
@@ -46,9 +46,19 @@ rem set the global_native_folder
 	if not [%global_native_folder%]==[ (echo    *** Your current .ane directory is "%global_native_folder%" ***)
 	echo.
 	set new_global_native_folder=.
-	set /p new_global_native_folder=My global natives folder: %=%
+	set /p new_global_native_folder=My global natives direcoty: %=%
 	echo Please wait...
-	if not [%new_global_native_folder%]==[.] ( if not [%new_global_native_folder%]==. (setx global_native_folder "%new_global_native_folder%") ) else (echo Global native folder didn't changed)
+	if not [%new_global_native_folder%]==[.] ( if not [%new_global_native_folder%]==. (setx global_native_folder "%new_global_native_folder%") ) else (echo Global native direcoty didn't change)
+	
+echo.
+rem set the certfolder
+	echo Do you have Global directory for all of your p12 files? please enter the directory below.
+	if not [%certfolder%]==[ (echo    *** Your current "certificate" directory is "%certfolder%" ***)
+	echo.
+	set new_certfolder=.
+	set /p new_certfolder=My certificates direcoty (The direcotry that contains all of your p12 files. you can change later): %=%
+	echo Please wait...
+	if not [%new_certfolder%]==[.] ( if not [%new_certfolder%]==. (setx certfolder "%new_certfolder%") ) else (echo Global p12 direcoty didn't change)
 	
 rem get the name of the application. I have to save them all in "exportparas" file
 	rem cls
