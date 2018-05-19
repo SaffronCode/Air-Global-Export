@@ -84,11 +84,11 @@ rem get the name of the application. I have to save them all in "exportparas" fi
 	set exportname=%swfname%
 	set /p exportname=Enter export file name:%=%
 	echo.
-	set /p provision_dev=Enter the apple development mobileprovision file name without extensnion:%=%
+	set /p provision_dev=Enter the apple "development" mobileprovision file name without extensnion:%=%
 	echo.
-	set /p provision_dist=Enter the apple production mobileprovision file name without extensnion:%=%
+	set /p provision_dist=Enter the apple "production" mobileprovision file name without extensnion:%=%
 	echo.
-	set /p provision_adhoc=Enter the apple adhoc mobileprovision file name without extensnion:%=%
+	set /p provision_adhoc=Enter the apple "adhoc" mobileprovision file name without extensnion:%=%
 	echo.
 	set local_native_folder=.
 	if not [%global_native_folder%]==[.] echo    *** Your global native folder is %global_native_folder%
@@ -108,13 +108,13 @@ rem get the name of the application. I have to save them all in "exportparas" fi
 	
 	rem local parameters
 	echo    *** Default manifest file is %global_manifest%
-	set /p dist_xml_name=Enter the name of the apple distribution manifest file:%=%
+	set /p dist_xml_name=Enter the name of the apple "distribution" or "dist" manifest file:%=%
 	echo.
 	echo    *** Default manifest file is %global_manifest%
-	set /p dev_xml_name=Enter the name of the apple development manifest file:%=%
+	set /p dev_xml_name=Enter the name of the apple "development" or "dev" manifest file:%=%
 	echo.
 	echo    *** Default manifest file is %global_manifest%
-	set /p android_xml_name=Enter the name of the android development manifest file:%=%
+	set /p android_xml_name=Enter the name of the "android" development manifest file:%=%
 	echo.
 
 	rem local parameters
@@ -264,7 +264,7 @@ if %os_type% == 2 goto ios_export
 if %os_type% == 3 goto window_export
 
 :android_export
-	copy "AppIconsForPublish-and" "AppIconsForPublish"
+	if exist AppIconsForPublish-and copy "AppIconsForPublish-and" "AppIconsForPublish"
 	set /p export_type=1-with embeded air  2-whitout air  3-remote debug%=%
 	
 	rem :apk-debug -connect 192.168.0.15         apk-captive-runtime
@@ -299,7 +299,7 @@ if %os_type% == 3 goto window_export
 		exit
 
 :ios_export
-	copy "AppIconsForPublish-ios" "AppIconsForPublish"
+	if exist AppIconsForPublish-ios copy "AppIconsForPublish-ios" "AppIconsForPublish"
 	set /p export_type=1-Dev  2-Dist  3-remote debug 4-adHoc%=%
 
 	if %export_type% == 1 goto iosdev
