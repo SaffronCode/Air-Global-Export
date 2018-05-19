@@ -26,56 +26,62 @@ This is a package of command saved on a bat file to help you export your swf pro
 <br>
   
 ##
+ <p dir="ltr">3-My certificates direcoty (The direcotry that contains all of your p12 files) you can skip it blank:</p><br>
+<p dir="rtl"> شما می توانید برای تمام پروژه های certificate هایش مشترک استفاده کنید که حتما باید نام های آنها به صورت زیر باشند و همگی از یک پسورد استفاده کنند. شما می توانید پسورد p12 های خود را با یک فایل با نام passwords به صورت متن داخل همین فولدر ذخیره کرده و یا کلا این گزینه را رد کنید و به صورت دستی برای پروژه در تنظیمات بعدی نام فایل p12 و پسورد آن را وارد کنید.<br><br>
+ نام p12:<br>
+ آندروید:<br>MTeam Certification File.p12<br><br>
+ آی او اس مخصوص تست:<br>MTeam IOS Certificate_dev.p12<br><br>
+ آی او اس مخصوص خروجی اپل استور:<br>MTeam IOS Certificate.p12<br><br>
+ </p>
  
 ## <p dir="rtl">تنظیمات اختصاصی-مختص پروژه جاری</p>
 
-## 
-</p><p dir="ltr">3-Enter the SWF file name without extenstion:</p><p dir="rtl">وارد کردن نام فایل swf بدون وارد کردن پسوند فایل<br>
+</p><p dir="ltr">1-Enter the SWF file name without extenstion:</p><p dir="rtl">وارد کردن نام فایل swf بدون وارد کردن پسوند فایل<br>
 مثال:myProject<br><br>
 
 ##
  
-</p><p dir="ltr">4-Enter export file name:</p><p dir="rtl">
+</p><p dir="ltr">2-Enter export file name:</p><p dir="rtl">
 <br>نامی که می خواهید فایل های خروجی با آن نام ذخیره شوند. اگر فیلد خالی بماند از نام پروژه استفاده می شود.<br><br>
 </p><p dir="ltr">
-5-Enter the apple development mobileprovision file name without extensnion:<br>
-6-Enter the apple production mobileprovision file name without extensnion:<br>
-7-Enter the apple adhoc mobileprovision file name without extensnion:<br></p><p dir="rtl">
+3-Enter the apple development mobileprovision file name without extensnion:<br>
+4-Enter the apple production mobileprovision file name without extensnion:<br>
+5-Enter the apple adhoc mobileprovision file name without extensnion:<br></p><p dir="rtl">
 فایل های mobileprovision برای خروجی های iOS. تمام این فایل ها باید در کنار فایل swf اصلی قرار داده شده باشند و نام آنها بدون پسوند وارد شود. (اگر خروجی iOS ندارید، آنها را خالی رها کنید)<br><br>
 
 ##
  
-</p><p dir="ltr">8-Do you have local native folder? enter its name or pass this questin blank:<br></p><p dir="rtl">
+</p><p dir="ltr">6-Do you have local native folder? enter its name or pass this questin blank:<br></p><p dir="rtl">
 در صورتی که پروژه شما فایل های native مخصوص خودش را دارد، فولدر فایل های native را در کنار پروژه ذخیره کرده و نام آن را وارد کنید.<br><br>
 
 ##
  
-</p><p dir="ltr">9-Enter the name of the apple distribution manifest file:<br>
-10-Enter the name of the apple development manifest file:<br>
-11-Enter the name of the android development manifest file:<br></p><p dir="rtl">
+</p><p dir="ltr">7-Enter the name of the apple distribution manifest file:<br>
+8-Enter the name of the apple development manifest file:<br>
+9-Enter the name of the android development manifest file:<br></p><p dir="rtl">
 نام فایل های -app.xml یا manifest پروژه که باید برای نسخه های آندروید، iOS مخصوص پابلیش اپل استور و iOS مخصوص دیباگ و ادهاک نام آنها را به صورت جداگانه وارد کنید. یه نام پیشفرض به شما پیشنهاد می شود که در صورتی که صحیح است فیلد را خالی رها کنید.<br><br>
 
 ##
  
-</p><p dir="ltr">11-If you need to change iOS and Android icons, add "AppIconsForPublish-and" for android icons and "AppIconsForPublish-and" for iOS icons.
+</p><p dir="ltr">10-If you need to change iOS and Android icons, add "AppIconsForPublish-and" for android icons and "AppIconsForPublish-and" for iOS icons.
 These directories should embed with your application: "Data AppIconsForPublish". Enter your own directory if you need to change them:<br></p><p dir="rtl">
 فایل های پیشفرض که معمولا با پروژه هایی که از SaffronCode استفاده کرده اند در اینجا به صورت پیشفرض در کنار نرم افزار قرار داده خواهد شد. در صورتی که فایل های دیگری می خواهید در کنار نرم افزار embed شوند و این مقادیر حذف شوند نام فایل ها و فولدر های خود را با یک space ثبت کنید.<br>
 مثال:myDataDirecory myImage.jpg otherImage.jpg<br><br>
 
 ##
  
-</p><p dir="ltr">12--D:\Sepehr\MTeam Certifications\MTeam IOS Certificate_dev.p12<br>
+</p><p dir="ltr">11--D:\Sepehr\MTeam Certifications\MTeam IOS Certificate_dev.p12<br>
 Do you need to change your iOS development certificate file? enter the new target or pass this question blank<br>
-13--D:\Sepehr\MTeam Certifications\MTeam IOS Certificate.p12<br>
+12--D:\Sepehr\MTeam Certifications\MTeam IOS Certificate.p12<br>
 Do you need to change your iOS distribution certificate file? enter the new target or pass this question blank<br>
-14--D:\Sepehr\MTeam Certifications\MTeam Certification File.p12<br>
+13--D:\Sepehr\MTeam Certifications\MTeam Certification File.p12<br>
 Do you need to change your Android certificate file? enter the new target or pass this question blank<br></p><p dir="rtl">
 از شما فایلهای p12 مخصوص خروجی های آندروید، iOS به ترتیب درخواست می شود. می توانید آنها را به صورت آدرس کامل و یا در صورتی که کنار نرم افزار قرار دارند به صورت نسبی وارد کنید.<br>
 مثال:myCert.p12<br><br>
 
 ##
  
-</p><p dir="ltr">15-Do you need to change the Certificate files passwords? Enter your new password:<br></p><p dir="rtl">
+</p><p dir="ltr">14-Do you need to change the Certificate files passwords? Enter your new password:<br></p><p dir="rtl">
 رمز عبور مربوط به فایل های p12 خود را وارد کنید ( این رمز برای تمام فایل ها مشترک است )<br><br>
 
 ##
