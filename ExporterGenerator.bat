@@ -108,13 +108,13 @@ rem get the name of the application. I have to save them all in "exportparas" fi
 	
 	rem local parameters
 	echo    *** Default manifest file is %global_manifest%
-	set /p dist_xml_name=Enter the name of the apple "distribution" or "dist" manifest file:%=%
+	set /p dist_xml_name=Enter the name of the apple "distribution" or "dist" manifest xml file:%=%
 	echo.
 	echo    *** Default manifest file is %global_manifest%
-	set /p dev_xml_name=Enter the name of the apple "development" or "dev" manifest file:%=%
+	set /p dev_xml_name=Enter the name of the apple "development" or "dev" manifest xml file:%=%
 	echo.
 	echo    *** Default manifest file is %global_manifest%
-	set /p android_xml_name=Enter the name of the "android" development manifest file:%=%
+	set /p android_xml_name=Enter the name of the "android" development manifest xml file:%=%
 	echo.
 
 	rem local parameters
@@ -151,6 +151,7 @@ rem get the name of the application. I have to save them all in "exportparas" fi
 	set android_certificate=%local_android_certificate%
 	echo.
 	
+	if not [%certificate_pass%] == [ echo The certificates password is loaded from certificates directory.
 	set /p certificate_pass=Do you need to change the Certificate files passwords? Enter your new password:%=%
 	
 	
@@ -185,7 +186,7 @@ set ios_pass=%certificate_pass%
 set android_pass=%certificate_pass%
 
 if not ["%provision_dist%"]==[ (
-	if ["%provision_dist%"]=="%provision_dist:mobileprovision=%" (
+	if ["%provision_dist%"]==["%provision_dist:.mobileprovision=%"] (
 		set ios_dist_mobprevision=%provision_dist%.mobileprovision
 	) else (
 		set ios_dist_mobprevision=%provision_dist%
@@ -193,15 +194,15 @@ if not ["%provision_dist%"]==[ (
 ) else (set provision_dist=.)
 
 if not ["%provision_dev%"]==[ (
-		if ["%provision_dev%"]=="%provision_dev:mobileprovision=%" (
-			set ios_dev_mobprevision=%provision_dev%.mobileprovision
-		) else (
-			set ios_dev_mobprevision=%provision_dev%
-		)
-	) else (set provision_dev=.)
+	if ["%provision_dev%"]==["%provision_dev:.mobileprovision=%"] (
+		set ios_dev_mobprevision=%provision_dev%.mobileprovision
+	) else (
+		set ios_dev_mobprevision=%provision_dev%
+	)
+) else (set provision_dev=.)
 	
 if not ["%provision_adhoc%"]==[ (
-	if ["%provision_adhoc%"]=="%provision_adhoc:mobileprovision=%" (
+	if ["%provision_adhoc%"]==["%provision_adhoc:.mobileprovision=%"] (
 		set ios_adHoc_mobprevision=%provision_adhoc%.mobileprovision
 	) else (
 		set ios_adHoc_mobprevision=%provision_adhoc%
