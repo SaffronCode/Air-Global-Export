@@ -182,6 +182,7 @@ if not ["%local_ios_dev_certificate%"]==["%ios_dev_certificate%"] (echo ios_dev_
 if not ["%ios_dist_certificate%"]==["%local_ios_dist_certificate%"] (echo ios_dist_certificate=%ios_dist_certificate%>> exportparams)
 if not ["%android_certificate%"]==["%local_android_certificate%"] (echo android_certificate=%android_certificate%>> exportparams)
 if not ["%certificate_pass%"]==["%password%"] (echo certificate_pass=%certificate_pass%>> exportparams)
+
 	
 	
 :load_param_and_continue
@@ -215,7 +216,7 @@ if not ["%provision_adhoc%"]==[ (
 	)
 ) else (set provision_adhoc=.)
 
-
+set global_manifest=%swfname%-app
 
 
 
@@ -345,10 +346,10 @@ if %os_type% == 3 goto window_export
 :window_export
 
 	:preview
-	@echo on
 	rem set dAA3=1024x768:1024x768
 	rem debugger V
-	"%aircompiler%\bin\adl.exe" -profile mobileDevice -screensize "%global_manifest%"
+	@echo on
+	"%aircompiler%\bin\adl.exe" -profile mobileDevice "%global_manifest%.xml"
 	pause
 	exit
 
