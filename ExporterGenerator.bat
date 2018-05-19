@@ -53,7 +53,7 @@ rem set the air compiler
 echo.
 rem set the global_native_folder
 	echo Do you have Global directory for all of your .ane files? please enter the directory below.
-	if not [%global_native_folder%]==[ (echo    *** Your current .ane directory is "%global_native_folder%" ***)
+	if not ["%global_native_folder%"]==[""] (echo    *** Your current .ane directory is "%global_native_folder%" ***)
 	echo.
 	set new_global_native_folder=.
 	set /p new_global_native_folder=My global natives direcoty: %=%
@@ -63,17 +63,18 @@ rem set the global_native_folder
 echo.
 rem set the certfolder
 	echo Do you have Global directory for all of your p12 files? please enter the directory below.
-	if not [%certfolder%]==[ (echo    *** Your current "certificate" directory is "%certfolder%" ***)
+	if not ["%certfolder%"]==[""] (echo    *** Your current "certificate" directory is "%certfolder%" ***)
 	echo.
 	set new_certfolder=.
-	set /p new_certfolder=My certificates direcoty (The direcotry that contains all of your p12 files. you can change later): %=%
+	set /p new_certfolder=My certificates direcoty (The direcotry that contains all of your p12 files) you can skip it blank: %=%
 	echo Please wait...
 	if not [%new_certfolder%]==[.] ( if not [%new_certfolder%]==. (setx certfolder "%new_certfolder%") ) else (echo Global p12 direcoty didn't change)
 	
 rem get the name of the application. I have to save them all in "exportparas" file
 	rem cls
-	set swfname=.
 	:setswfname
+	cls
+	set swfname=.
 	set /p swfname=Enter the SWF file name without extenstion:%=%
 	if [%swfname%]==[.] (echo * You have to enter you swf file name 
 		goto setswfname
