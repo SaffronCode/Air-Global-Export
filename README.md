@@ -73,7 +73,7 @@ Do you need to change your Android certificate file? enter the new target or pas
 
 <p>
 
-## <p dir="rtl">خطا های رایج</p>
+## <p dir="rtl">روش خطا یابی</p>
 
 <p dir="rtl">
         به صورت کلی اگر متوجه شدید خروجی نرم افزار ایجاد نشده امّا فایل ExporterGenerator.bat بسته می شود، خطایی رخ داده که برای مشاهده متن خطا باید به روش زیر ExporterGenerator.bat را باز کنید:<br><br>
