@@ -87,7 +87,7 @@ rem get the name of the application. I have to save them all in "exportparas" fi
 	echo.
 	set /p provision_dev=Enter the apple "development" mobileprovision file name without extensnion:%=%
 	echo.
-	set /p provision_dist=Enter the apple "production" mobileprovision file name without extensnion:%=%
+	set /p provision_dist=Enter the apple "production(distribution)" mobileprovision file name without extensnion:%=%
 	echo.
 	set /p provision_adhoc=Enter the apple "adhoc" mobileprovision file name without extensnion:%=%
 	echo.
@@ -134,26 +134,31 @@ rem get the name of the application. I have to save them all in "exportparas" fi
 	rem local parameters
 	set local_ios_dev_certificate=%ios_dev_certificate%
 	echo -%local_ios_dev_certificate%
-	set /p local_ios_dev_certificate=Do you need to change your iOS development certificate file? enter the new target or pass this question blank%=%
+	set /p local_ios_dev_certificate=Do you need to change your iOS "development" certificate file? enter the new target or pass this question blank%=%
 	set ios_dev_certificate=%local_ios_dev_certificate%
 	echo.
 	
 	rem local parameters
 	set local_ios_dist_certificate=%ios_dist_certificate%
 	echo -%local_ios_dist_certificate%
-	set /p local_ios_dist_certificate=Do you need to change your iOS distribution certificate file? enter the new target or pass this question blank%=%
+	set /p local_ios_dist_certificate=Do you need to change your iOS "distribution" certificate file? enter the new target or pass this question blank%=%
 	set ios_dist_certificate=%local_ios_dist_certificate%
 	echo.
 	
 	rem local parameters
 	set local_android_certificate=%android_certificate%
 	echo -%local_android_certificate%
-	set /p local_android_certificate=Do you need to change your Android certificate file? enter the new target or pass this question blank%=%
+	set /p local_android_certificate=Do you need to change your "Android" certificate file? enter the new target or pass this question blank%=%
 	set android_certificate=%local_android_certificate%
 	echo.
 	
+	:setpasswrod
+	
 	if not [%certificate_pass%] == [ echo The certificates password is loaded from certificates directory.
-	set /p certificate_pass=Do you need to change the Certificate files passwords? Enter your new password:%=%
+	set /p test_pass=Do you need to change the Certificate files passwords? Enter your new password:%=%
+	
+	if ["%test_pass%"]==[""] if ["%certificate_pass%"]==[""] (echo You should enter your passwrod! 
+	goto :setpasswrod)
 	
 	
 
