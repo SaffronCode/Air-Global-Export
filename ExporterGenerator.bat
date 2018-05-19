@@ -160,7 +160,7 @@ rem get the name of the application. I have to save them all in "exportparas" fi
 	if ["%test_pass%"]==[""] if ["%certificate_pass%"]==[""] (echo You should enter your passwrod! 
 	goto :setpasswrod)
 	
-	
+	set certificate_pass=%test_pass%
 
 	
 	
