@@ -277,7 +277,7 @@ if %os_type% == 3 goto window_export
 
 :android_export
 	if exist AppIconsForPublish-and copy "AppIconsForPublish-and" "AppIconsForPublish"
-	set /p export_type=1-with embeded air  2-whitout air  3-remote debug%=%
+	set /p export_type=1-with embeded air  3-remote debug%=%
 	
 	rem :apk-debug -connect 192.168.0.15         apk-captive-runtime
 	rem :apk � an Android package. A package produced with this target can only be installed on an Android device, not an emulator.
