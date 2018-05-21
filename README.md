@@ -24,7 +24,7 @@ This is a package of command saved on a bat file to help you export your swf pro
 ##
  
 </p><p dir="ltr">2-My global natives folder: <br></p><p dir="rtl">
-ممکن است از تعداد زیادی فایل ane استفاده کرده باشید. برای اینکه بعد ها در بروز رسانی این کتابخانه ها در نرم افزار های مختلفتان به مشکل نخورید می توانید مانند کامپایلر یه فولدر را به آن اختصاص داده و از دفعات بعدی مقداری برای آن وارد نکنید تا از فولدر اصلی فایل های native ثبت شده استفاده شود.<br>
+ممکن است از تعداد زیادی فایل ane استفاده کرده باشید. برای اینکه بعد ها در بروز رسانی این کتابخانه ها در نرم افزار های مختلفتان به مشکل نخورید می توانید مانند کامپایلر یه فولدر را به آن اختصاص داده و از دفعات بعدی مقداری برای آن وارد نکنید تا از فولدر اصلی فایل های native ثبت شده استفاده شود. ( در ادامه تنظیمات اختصاصی نرم افزار مجدد این سوال پرسیده می شود )<br>
 <br>
   
 ##
@@ -91,7 +91,13 @@ Do you need to change your Android certificate file? enter the new target or pas
 
 ##
  <p dir="rtl">در انتها از شما سوالاتی جهت هدایت به نسخه ی خروجی مورد نیاز را می پرسد و عملیات گرفتن خروجی انجام می شود.</p>
-</p>
+</p><br>
+<p dir="ltr">1-with embeded air  3-remote debug</p><br>
+<p dir="rtl">1 برای گرفتن خروجی قابل ریلیز از نرم افزار، 2 برای گرفتن خروجی جهت تست به کمک fdb و تست روی شبکه داخلی</p><br>
+<p dir="ltr">1-Dev  2-Dist  3-remote debug 4-adHoc</p><br>
+<p dir="rtl">1 خروجی برای دیوایس های تست. 2 خروجی برای پابلیش روی اپل استور. 3 خروجی تست ریموت داخل شبکه روی fdb. 4 خروجی adHoc</p><br>
+<br>
+<p dir="rtl">* در مورد fdb توضیحی در این مستند آورده نشده است. در صورت نیاز میتوانید در این مورد مطالعه فرمایید. <a href="https://help.adobe.com/en_US/air/build/WSd106d9f573d8da23-dcd13bd12a7d944d0b-7ffe.html">لینک مطالعه</a></p>
 
 ## <p dir="rtl">توضیحات تکمیلی</p>
 
@@ -108,8 +114,11 @@ Do you need to change your Android certificate file? enter the new target or pas
 <p dir="rtl">
         به صورت کلی اگر متوجه شدید خروجی نرم افزار ایجاد نشده امّا فایل ExporterGenerator.bat بسته می شود، خطایی رخ داده که برای مشاهده متن خطا باید به روش زیر ExporterGenerator.bat را باز کنید:<br><br>
         1- دکمه ی shift کی برد را نگه داشته و کنار فایل ExporterGenerator.bat روی فولدر جاری راست کلیک  نمایید. گزینه ای با عنوان open command window here در منوی باز شده ظاهر می شود که cmd را از همان آدرس باز می کند.<br>
-        (این کار معادل است با اینکه cmd را باز کنید و به کمک دستور cd مسیر را به فولدر پروژه و فولدر ExporterGenerator.bat انتقال دهید)
+        (این کار معادل است با اینکه cmd را باز کنید و به کمک دستور cd مسیر را به فولدر پروژه و فولدر ExporterGenerator.bat انتقال دهید)<br>
         2- در محیط cmd باز شده ExporterGenerator.bat را تایپ و گزینه Enter را فشار دهید تا ExporterGenerator.bat اجرا شود.<br>
         3- سپس به همان ترتیب قبل کار را پیش ببرید و حالا اگر خطایی رخ دهد در همان پنجره آن را می توانید مشاهده و به ترتیب اعلام شده آن را رفع کنید.<br><br>
+  
+  * برای اجرا شدن کامپایلر Adobe Air حتما باید Java Runtime Environment (JRE) روی سیستم عامل شما نصب باشد.<a href="http://www.oracle.com/technetwork/java/javase/downloads/jre10-downloads-4417026.html">لینک دانلود</a>
         
+ 
 <p>
