@@ -138,21 +138,21 @@ rem get the name of the application. I have to save them all in "exportparas" fi
 	rem local parameters
 	set local_ios_dev_certificate=%ios_dev_certificate%
 	echo -%local_ios_dev_certificate%
-	set /p local_ios_dev_certificate=Do you need to change your iOS "development" certificate file? enter the new target or pass this question blank%=%
+	set /p local_ios_dev_certificate=Do you need to change your iOS "development" p12 certificate file? enter the new target or pass this question blank%=%
 	set ios_dev_certificate=%local_ios_dev_certificate%
 	echo.
 	
 	rem local parameters
 	set local_ios_dist_certificate=%ios_dist_certificate%
 	echo -%local_ios_dist_certificate%
-	set /p local_ios_dist_certificate=Do you need to change your iOS "distribution" certificate file? enter the new target or pass this question blank%=%
+	set /p local_ios_dist_certificate=Do you need to change your iOS "distribution" p12 certificate file? enter the new target or pass this question blank%=%
 	set ios_dist_certificate=%local_ios_dist_certificate%
 	echo.
 	
 	rem local parameters
 	set local_android_certificate=%android_certificate%
 	echo -%local_android_certificate%
-	set /p local_android_certificate=Do you need to change your "Android" certificate file? enter the new target or pass this question blank%=%
+	set /p local_android_certificate=Do you need to change your "Android" p12 certificate file? enter the new target or pass this question blank%=%
 	set android_certificate=%local_android_certificate%
 	echo.
 	
