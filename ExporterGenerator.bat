@@ -138,23 +138,38 @@ rem get the name of the application. I have to save them all in "exportparas" fi
 	rem local parameters
 	set local_ios_dev_certificate=%ios_dev_certificate%
 	echo -%local_ios_dev_certificate%
-	set /p local_ios_dev_certificate=Do you need to change your iOS "development" p12 certificate file? enter the new target or pass this question blank%=%
-	set ios_dev_certificate=%local_ios_dev_certificate%
+	set /p local_ios_dev_certificate=Do you need to change your iOS "development" p12 certificate file? enter the new target or pass this question blank: %=%
 	echo.
+	
+	if not ["%local_ios_dev_certificate%"]==[ (
+		if ["%local_ios_dev_certificate%"]==["%local_ios_dev_certificate:.p12=%"] (
+			set local_ios_dev_certificate=%local_ios_dev_certificate%.p12
+		)
+	)
 	
 	rem local parameters
 	set local_ios_dist_certificate=%ios_dist_certificate%
 	echo -%local_ios_dist_certificate%
-	set /p local_ios_dist_certificate=Do you need to change your iOS "distribution" p12 certificate file? enter the new target or pass this question blank%=%
-	set ios_dist_certificate=%local_ios_dist_certificate%
+	set /p local_ios_dist_certificate=Do you need to change your iOS "distribution" p12 certificate file? enter the new target or pass this question blank: %=%
 	echo.
+	
+	if not ["%local_ios_dist_certificate%"]==[ (
+		if ["%local_ios_dist_certificate%"]==["%local_ios_dist_certificate:.p12=%"] (
+			set local_ios_dist_certificate=%local_ios_dist_certificate%.p12
+		)
+	)
 	
 	rem local parameters
 	set local_android_certificate=%android_certificate%
 	echo -%local_android_certificate%
-	set /p local_android_certificate=Do you need to change your "Android" p12 certificate file? enter the new target or pass this question blank%=%
-	set android_certificate=%local_android_certificate%
+	set /p local_android_certificate=Do you need to change your "Android" p12 certificate file? enter the new target or pass this question blank: %=%
 	echo.
+	
+	if not ["%local_android_certificate%"]==[ (
+		if ["%local_android_certificate%"]==["%local_android_certificate:.p12=%"] (
+			set local_android_certificate=%local_android_certificate%.p12
+		)
+	)
 	
 	:setpasswrod
 	
@@ -182,9 +197,9 @@ echo dev_xml_name=%dev_xml_name%>> exportparams
 echo android_xml_name=%android_xml_name%>> exportparams
 echo contents=%contents%>> exportparams
 echo ios_contents=%ios_contents%>> exportparams
-if not ["%local_ios_dev_certificate%"]==["%ios_dev_certificate%"] (echo ios_dev_certificate=%ios_dev_certificate%>> exportparams)
-if not ["%ios_dist_certificate%"]==["%local_ios_dist_certificate%"] (echo ios_dist_certificate=%ios_dist_certificate%>> exportparams)
-if not ["%android_certificate%"]==["%local_android_certificate%"] (echo android_certificate=%android_certificate%>> exportparams)
+if not ["%local_ios_dev_certificate%"]==["%ios_dev_certificate%"] if not ["%local_ios_dev_certificate%"] == [""] (echo ios_dev_certificate=%local_ios_dev_certificate%>> exportparams)
+if not ["%ios_dist_certificate%"]==["%local_ios_dist_certificate%"] if not ["%local_ios_dist_certificate%"] == [""] (echo ios_dist_certificate=%local_ios_dist_certificate%>> exportparams)
+if not ["%android_certificate%"]==["%local_android_certificate%"] if not ["%local_android_certificate%"] == [""] (echo android_certificate=%local_android_certificate%>> exportparams)
 if not ["%certificate_pass%"]==["%password%"] (echo certificate_pass=%certificate_pass%>> exportparams)
 
 	
