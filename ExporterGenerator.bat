@@ -96,7 +96,11 @@ rem get the name of the application. I have to save them all in "exportparas" fi
 	set /p local_native_folder=Do you have local native folder? enter its name or pass this questin blank:%=%
 	echo.
 	if [%local_native_folder%]==[.] (
-		set native_folder=-extdir "%global_native_folder%"
+		if not ["%global_native_folder%"] == [""] (
+			set native_folder=-extdir "%global_native_folder%"
+		) else (
+			set native_folder=.
+		)
 	) else (
 		set native_folder=-extdir "%local_native_folder%"
 	)
