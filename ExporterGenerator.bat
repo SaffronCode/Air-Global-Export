@@ -130,8 +130,8 @@ rem get the name of the application. I have to save them all in "exportparas" fi
 	if not exist Data (echo YOU FORGOT TO ADD "Data" FOLDER TO YOUR EXPORT FOLDER! it uses for Saffron apps)
 	echo.
 	
-	set ios_contents=Default.png Default@2x.png Default-568h@2x.png Default-568h-Portrait@2x.png Default-Landscape.png Default-Landscape@2x~ipad.png Default-Landscape~ipad.png Default-Portrait.png Default-Portrait@2x~ipad.png Default-Portrait~ipad.png
-	if not exist Default.png (echo YOU FORGOT TO ADD "%ios_contents%" FILES TO YOUR EXPORT FOLDER! used for ios exports)
+	set ios_contents=Default~iphone.png Default@2x~iphone.png Default-568h@2x~iphone.png Default-375w-667h@2x~iphone.png Default-414w-736h@3x~iphone.png Default-Landscape-414w-736h@3x~iphone.png Default-812h@3x~iphone.png Default-Landscape-812h@3x~iphone.png Default-Portrait~ipad.png Default-Landscape~ipad.png Default-Portrait@2x~ipad.png Default-Landscape@2x~ipad.png Default-Portrait-1112h@2x.png Default-Landscape-1112h@2x.png Default-Portrait@2x.png Default-Landscape@2x.png
+	if not exist Default~iphone.png (echo YOU FORGOT TO ADD "%ios_contents%" FILES TO YOUR EXPORT FOLDER! used for ios exports)
 	echo.
 	
 	
