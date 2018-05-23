@@ -18,26 +18,33 @@ rem fist initializes
 		if ["%aircompiler%"]==[""] (
 			goto environment_vars
 		) else (
-			set /p edit_env_var=Do you need to update your environment variables for air compiler directory and etc? press 1 to proceed.%=%
-			if [%edit_env_var%]==1 (
-				goto environment_vars
-			) else (
-				goto setswfname
-			)
+			goto ask_to_update_environment_var
 		)
+	) else (
+		goto ask_to_update_exporter_params
+	)
+	
+	:ask_to_update_environment_var
+	set /p edit_env_var=Do you need to update your environment variables for air compiler directory and etc? press 8 to proceed.%=%
+	if [%edit_env_var%]==[8] (
+		goto environment_vars
+	) else (
+		goto setswfname
 	)
 	
 	
 rem control saved parameters to continue
 
+	:ask_to_update_exporter_params
+	
 	echo Export properties founded
 	set goto_edit_exporter=2
-	set /p goto_edit_exporter=Do you need to reset your Exoprter file? press 1 to reset.%=%
-	if not %goto_edit_exporter%==1 (goto load_param_and_continue)
+	set /p goto_edit_exporter=Do you need to reset your Exoprter file? press 8 to reset.%=%
+	if not %goto_edit_exporter%==8 (goto load_param_and_continue)
 	echo.
 	set edit_env_var=2
-	set /p edit_env_var=Do you need to update your environment variables? press 1 to proceed.%=%
-	if %edit_env_var%==1 (
+	set /p edit_env_var=Do you need to update your environment variables? press 8 to proceed.%=%
+	if %edit_env_var%==8 (
 			goto environment_vars
 		) else (
 			goto setswfname
@@ -185,7 +192,7 @@ echo exportname=%exportname%>> exportparams
 echo provision_dev=%provision_dev%>> exportparams
 echo provision_dist=%provision_dist%>> exportparams
 echo provision_adhoc=%provision_adhoc%>> exportparams
-if not ["%native_folder%"]==[""] (echo native_folder=%native_folder%>> exportparams)
+if not ["%native_folder%"]==["."] (echo native_folder=%native_folder%>> exportparams)
 echo dist_xml_name=%dist_xml_name%>> exportparams
 echo dev_xml_name=%dev_xml_name%>> exportparams
 echo android_xml_name=%android_xml_name%>> exportparams
