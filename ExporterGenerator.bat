@@ -4,41 +4,44 @@ echo.
 title Air Exporte batch script - Saffron
 
 rem fist initializes
-set android_certificate=%certfolder%\MTeam Certification File.p12
-set ios_dev_certificate=%certfolder%\MTeam IOS Certificate_dev.p12
-set ios_dist_certificate=%certfolder%\MTeam IOS Certificate.p12
+	set android_certificate=%certfolder%\MTeam Certification File.p12
+	set ios_dev_certificate=%certfolder%\MTeam IOS Certificate_dev.p12
+	set ios_dist_certificate=%certfolder%\MTeam IOS Certificate.p12
 
- 
-set passwordfile=%certfolder%\passwords
-if exist "%passwordfile%" (
-	set /p password=<"%passwordfile%"
-)
-set certificate_pass=%password%
-if not exist exportparams (
-	if ["%aircompiler%"]==[""] (
-		goto environment_vars
-	) else (
-		set /p edit_env_var=Do you need to update your environment variables for air compiler directory and etc? press 1 to proceed.%=%
-		if [%edit_env_var%]==1 (
+	 
+	set passwordfile=%certfolder%\passwords
+	if exist "%passwordfile%" (
+		set /p password=<"%passwordfile%"
+	)
+	set certificate_pass=%password%
+	if not exist exportparams (
+		if ["%aircompiler%"]==[""] (
+			goto environment_vars
+		) else (
+			set /p edit_env_var=Do you need to update your environment variables for air compiler directory and etc? press 1 to proceed.%=%
+			if [%edit_env_var%]==1 (
+				goto environment_vars
+			) else (
+				goto setswfname
+			)
+		)
+	)
+	
+	
+rem control saved parameters to continue
+
+	echo Export properties founded
+	set goto_edit_exporter=2
+	set /p goto_edit_exporter=Do you need to reset your Exoprter file? press 1 to reset.%=%
+	if not %goto_edit_exporter%==1 (goto load_param_and_continue)
+	echo.
+	set edit_env_var=2
+	set /p edit_env_var=Do you need to update your environment variables? press 1 to proceed.%=%
+	if %edit_env_var%==1 (
 			goto environment_vars
 		) else (
 			goto setswfname
 		)
-	)
-)
-
-echo Export properties founded
-set goto_edit_exporter=2
-set /p goto_edit_exporter=Do you need to reset your Exoprter file? press 1 to reset.%=%
-if not %goto_edit_exporter%==1 (goto load_param_and_continue)
-echo.
-set edit_env_var=2
-set /p edit_env_var=Do you need to update your environment variables? press 1 to proceed.%=%
-if %edit_env_var%==1 (
-		goto environment_vars
-	) else (
-		goto setswfname
-	)
 rem test part
 
 :environment_vars
@@ -130,11 +133,6 @@ rem get the name of the application. I have to save them all in "exportparas" fi
 	if not exist Data (echo YOU FORGOT TO ADD "Data" FOLDER TO YOUR EXPORT FOLDER! it uses for Saffron apps)
 	echo.
 	
-	set ios_contents=Default~iphone.png Default@2x~iphone.png Default-568h@2x~iphone.png Default-375w-667h@2x~iphone.png Default-414w-736h@3x~iphone.png Default-Landscape-414w-736h@3x~iphone.png Default-812h@3x~iphone.png Default-Landscape-812h@3x~iphone.png Default-Portrait~ipad.png Default-Landscape~ipad.png Default-Portrait@2x~ipad.png Default-Landscape@2x~ipad.png Default-Portrait-1112h@2x.png Default-Landscape-1112h@2x.png Default-Portrait@2x.png Default-Landscape@2x.png Assets.car
-	
-	echo.
-	
-	
 	rem local parameters
 	set local_ios_dev_certificate=%ios_dev_certificate%
 	echo -%local_ios_dev_certificate%
@@ -207,6 +205,10 @@ if not ["%certificate_pass%"]==["%password%"] (echo certificate_pass=%certificat
 :load_param_and_continue
 rem load and save a file line by line to other place
 for /f "delims=" %%x in (exportparams) do (set %%x)
+
+	
+set ios_contents=Default~iphone.png Default@2x~iphone.png Default-568h@2x~iphone.png Default-375w-667h@2x~iphone.png Default-414w-736h@3x~iphone.png Default-Landscape-414w-736h@3x~iphone.png Default-812h@3x~iphone.png Default-Landscape-812h@3x~iphone.png Default-Portrait~ipad.png Default-Landscape~ipad.png Default-Portrait@2x~ipad.png Default-Landscape@2x~ipad.png Default-Portrait-1112h@2x.png Default-Landscape-1112h@2x.png Default-Portrait@2x.png Default-Landscape@2x.png  Assets.car
+	
 
 set ios_pass=%certificate_pass%
 set android_pass=%certificate_pass%
@@ -336,6 +338,7 @@ if %os_type% == 3 goto window_export
 		pause
 		goto controlioscontent;
 	)
+	cls
 	if not exist Assets.car (echo YOU FORGOT TO ADD "Assets.car" FILE TO YOUR PROJECT! send your icon to this portal and make one to contiue...
 		echo http://www.applicationloader.net/appuploader/icontool.php
 		start "" http://www.applicationloader.net/appuploader/icontool.php
