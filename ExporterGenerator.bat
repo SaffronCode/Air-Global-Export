@@ -130,8 +130,8 @@ rem get the name of the application. I have to save them all in "exportparas" fi
 	if not exist Data (echo YOU FORGOT TO ADD "Data" FOLDER TO YOUR EXPORT FOLDER! it uses for Saffron apps)
 	echo.
 	
-	set ios_contents=Default~iphone.png Default@2x~iphone.png Default-568h@2x~iphone.png Default-375w-667h@2x~iphone.png Default-414w-736h@3x~iphone.png Default-Landscape-414w-736h@3x~iphone.png Default-812h@3x~iphone.png Default-Landscape-812h@3x~iphone.png Default-Portrait~ipad.png Default-Landscape~ipad.png Default-Portrait@2x~ipad.png Default-Landscape@2x~ipad.png Default-Portrait-1112h@2x.png Default-Landscape-1112h@2x.png Default-Portrait@2x.png Default-Landscape@2x.png
-	if not exist Default~iphone.png (echo YOU FORGOT TO ADD "%ios_contents%" FILES TO YOUR EXPORT FOLDER! used for ios exports)
+	set ios_contents=Default~iphone.png Default@2x~iphone.png Default-568h@2x~iphone.png Default-375w-667h@2x~iphone.png Default-414w-736h@3x~iphone.png Default-Landscape-414w-736h@3x~iphone.png Default-812h@3x~iphone.png Default-Landscape-812h@3x~iphone.png Default-Portrait~ipad.png Default-Landscape~ipad.png Default-Portrait@2x~ipad.png Default-Landscape@2x~ipad.png Default-Portrait-1112h@2x.png Default-Landscape-1112h@2x.png Default-Portrait@2x.png Default-Landscape@2x.png Assets.car
+	
 	echo.
 	
 	
@@ -196,7 +196,7 @@ echo dist_xml_name=%dist_xml_name%>> exportparams
 echo dev_xml_name=%dev_xml_name%>> exportparams
 echo android_xml_name=%android_xml_name%>> exportparams
 echo contents=%contents%>> exportparams
-echo ios_contents=%ios_contents%>> exportparams
+rem echo ios_contents=%ios_contents%>> exportparams
 if not ["%local_ios_dev_certificate%"]==["%ios_dev_certificate%"] if not ["%local_ios_dev_certificate%"] == [""] (echo ios_dev_certificate=%local_ios_dev_certificate%>> exportparams)
 if not ["%ios_dist_certificate%"]==["%local_ios_dist_certificate%"] if not ["%local_ios_dist_certificate%"] == [""] (echo ios_dist_certificate=%local_ios_dist_certificate%>> exportparams)
 if not ["%android_certificate%"]==["%local_android_certificate%"] if not ["%local_android_certificate%"] == [""] (echo android_certificate=%local_android_certificate%>> exportparams)
@@ -328,6 +328,20 @@ if %os_type% == 3 goto window_export
 :ios_export
 	if exist AppIconsForPublish-ios copy "AppIconsForPublish-ios" "AppIconsForPublish"
 	set /p export_type=1-Dev  2-Dist  3-remote debug 4-adHoc%=%
+	
+	
+	:controlioscontent
+	if not exist Default~iphone.png (
+		echo YOU FORGOT TO ADD "%ios_contents%" FILES TO YOUR EXPORT FOLDER! used for ios exports. add them to your directory and press any key...
+		pause
+		goto controlioscontent;
+	)
+	if not exist Assets.car (echo YOU FORGOT TO ADD "Assets.car" FILE TO YOUR PROJECT! send your icon to this portal and make one to contiue...
+		echo http://www.applicationloader.net/appuploader/icontool.php
+		start "" http://www.applicationloader.net/appuploader/icontool.php
+		pause
+		goto controlioscontent;
+	)
 
 	if %export_type% == 1 goto iosdev
 	if %export_type% == 2 goto iosdist
