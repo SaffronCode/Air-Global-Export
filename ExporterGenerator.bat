@@ -98,14 +98,10 @@ rem get the name of the application. I have to save them all in "exportparas" fi
 	if not [%global_native_folder%]==[.] echo    *** Your global native folder is %global_native_folder%
 	set /p local_native_folder=Do you have local native folder? enter its name or pass this questin blank:%=%
 	echo.
-	if [%local_native_folder%]==[.] (
-		if not ["%global_native_folder%"] == [""] (
-			set native_folder=-extdir "%global_native_folder%"
-		) else (
-			set native_folder=.
-		)
-	) else (
+	if not [%local_native_folder%]==[.] (
 		set native_folder=-extdir "%local_native_folder%"
+	) else (
+		set native_folder=.
 	)
 	
 	rem local parameters
@@ -189,7 +185,7 @@ echo exportname=%exportname%>> exportparams
 echo provision_dev=%provision_dev%>> exportparams
 echo provision_dist=%provision_dist%>> exportparams
 echo provision_adhoc=%provision_adhoc%>> exportparams
-if not ["%local_native_folder%"]==[ if not ["%native_folder%"]==["%local_native_folder%"] (echo native_folder=%native_folder%>> exportparams)
+if not ["%native_folder%"]==[""] (echo native_folder=%native_folder%>> exportparams)
 echo dist_xml_name=%dist_xml_name%>> exportparams
 echo dev_xml_name=%dev_xml_name%>> exportparams
 echo android_xml_name=%android_xml_name%>> exportparams
@@ -204,6 +200,8 @@ if not ["%certificate_pass%"]==["%password%"] (echo certificate_pass=%certificat
 	
 :load_param_and_continue
 rem load and save a file line by line to other place
+set native_folder=-extdir "%global_native_folder%"
+
 for /f "delims=" %%x in (exportparams) do (set %%x)
 
 	
