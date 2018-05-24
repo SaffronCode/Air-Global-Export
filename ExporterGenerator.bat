@@ -130,7 +130,7 @@ rem get the name of the application. I have to save them all in "exportparas" fi
 
 	rem local parameters
 	set contents=Data AppIconsForPublish
-	echo If you need to change iOS and Android icons, add "AppIconsForPublish-and" for android icons and "AppIconsForPublish-and" for iOS icons.
+	echo If you need to change iOS and Android icons, add "AppIconsForPublish-and" for android icons and "AppIconsForPublish-ios" for iOS icons.
 	set /p contents=These directories should embed with your application: "%contents%". Enter your own directory if you need to change them:%=%
 	if not exist AppIconsForPublish (echo YOU FORGOT TO ADD "AppIconsForPublish" FOLDER TO YOUR EXPORT FOLDER! it uses for Saffron apps)
 	if not exist Data (echo YOU FORGOT TO ADD "Data" FOLDER TO YOUR EXPORT FOLDER! it uses for Saffron apps)
