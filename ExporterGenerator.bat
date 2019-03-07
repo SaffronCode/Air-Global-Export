@@ -212,7 +212,7 @@ set native_folder=-extdir "%global_native_folder%"
 for /f "delims=" %%x in (exportparams) do (set %%x)
 
 	
-set ios_contents=Default~iphone.png Default@2x~iphone.png Default-568h@2x~iphone.png Default-375w-667h@2x~iphone.png Default-414w-736h@3x~iphone.png Default-Landscape-414w-736h@3x~iphone.png Default-812h@3x~iphone.png Default-Landscape-812h@3x~iphone.png Default-Portrait~ipad.png Default-Landscape~ipad.png Default-Portrait@2x~ipad.png Default-Landscape@2x~ipad.png Default-Portrait-1112h@2x.png Default-Landscape-1112h@2x.png Default-Portrait@2x.png Default-Landscape@2x.png  Assets.car
+set ios_contents=Default~iphone.png Default@2x~iphone.png Default-568h@2x~iphone.png Default-375w-667h@2x~iphone.png Default-414w-736h@3x~iphone.png Default-Landscape-414w-736h@3x~iphone.png Default-812h@3x~iphone.png Default-Landscape-812h@3x~iphone.png Default-Portrait~ipad.png Default-Landscape~ipad.png Default-Portrait@2x~ipad.png Default-Landscape@2x~ipad.png Default-Portrait-1112h@2x.png Default-Landscape-1112h@2x.png Default-Portrait@2x.png Default-Landscape@2x.png Default-414w-896h@3x~iphone.png Default-896h@2x~iphone.png Default-Landscape-414w-896h@3x~iphone.png Default-Landscape-896h@2x~iphone.png Assets.car
 	
 
 set ios_pass=%certificate_pass%
