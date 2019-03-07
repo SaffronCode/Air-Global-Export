@@ -118,7 +118,7 @@ Do you need to change your Android certificate file? enter the new target or pas
         2- در محیط cmd باز شده ExporterGenerator.bat را تایپ و گزینه Enter را فشار دهید تا ExporterGenerator.bat اجرا شود.<br>
         3- سپس به همان ترتیب قبل کار را پیش ببرید و حالا اگر خطایی رخ دهد در همان پنجره آن را می توانید مشاهده و به ترتیب اعلام شده آن را رفع کنید.<br><br>
   
-  * برای اجرا شدن کامپایلر Adobe Air حتما باید Java Runtime Environment (JRE) روی سیستم عامل شما نصب باشد.<a href="http://www.oracle.com/technetwork/java/javase/downloads/jre10-downloads-4417026.html">لینک دانلود</a>
+<p dir="rtl">  * برای اجرا شدن کامپایلر Adobe Air حتما باید Java Runtime Environment روی سیستم عامل شما نصب باشد.<a href="http://www.oracle.com/technetwork/java/javase/downloads/jre10-downloads-4417026.html">لینک دانلود</a></p>
         
  
 <p>
