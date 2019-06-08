@@ -207,7 +207,7 @@ if not ["%certificate_pass%"]==["%password%"] (echo certificate_pass=%certificat
 	
 :load_param_and_continue
 rem load and save a file line by line to other place
-set native_folder=-extdir "%global_native_folder%"
+set native_folder=-extdir "%global_native_folder%" -extdir ".\native"
 
 for /f "delims=" %%x in (exportparams) do (set %%x)
 
