@@ -18,7 +18,7 @@ package parts
                     certIOSDev:File,
                     certAndroid :File ;
 
-        private var airButton:MovieClip ;
+        private var airCompilersList:FolderManager ;
 
         public function GlobalSetting()
         {
@@ -29,8 +29,13 @@ package parts
             certIOSDev = loadFileIfExists(id_cert_ios_dev_location);
             certAndroid = loadFileIfExists(id_cert_android_location);
 
-            airButton = Obj.get("air_mc",this);
-            //airButton.buttonMode = true ;
+            airCompilersList = Obj.get("compiler_list_mc",this);
+            airCompilersList.setUp(isAirCompilderFolder)
+        }
+
+        private function isAirCompilderFolder(folder:File):File
+        {
+            return folder; 
         }
 
         private function loadFileIfExists(id:String):File
