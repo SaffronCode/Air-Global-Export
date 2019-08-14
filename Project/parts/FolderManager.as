@@ -23,7 +23,6 @@ package parts
 
         private var directories:Array ;
 
-        private var selectedDirectory:uint = 0 ;
 
         private var listY0:Number,
                     listH0:Number ;
@@ -53,7 +52,6 @@ package parts
             list.addEventListener(AppEventContent.PAGE_CHANGES,changeSelectedFolder);
             list.addEventListener(MouseEvent.CLICK,preventListClick);
 
-            //this.buttonMode = true ;
             this.addEventListener(MouseEvent.CLICK,openFolderBrowser);
 
             updateInterface();
@@ -79,7 +77,6 @@ package parts
             {
                 directories = cash ;
             }
-            selectedDirectory = GlobalStorage.load(id_selectedFile+this.name);
         }
 
         /**
@@ -87,7 +84,6 @@ package parts
          */
         private function saveDirectories():void
         {
-            GlobalStorage.save(id_selectedFile+this.name,selectedDirectory,false);
             GlobalStorage.save(id_folderManager+this.name,directories);
         }
 
@@ -114,10 +110,9 @@ package parts
 
         private function addThisDirectory(directory:File):void
         {
-            var files:Vector.<File> ;
+            var files:Vector.<File> = new Vector.<File>(); ;
             if(fileControllerFunction==null || fileControllerFunction(directory)!=null)
             {
-                files = new Vector.<File>();
                 files.push(directory);
             }
             for(var i:int = 0 ; i<files.length ; i++)
@@ -136,7 +131,9 @@ package parts
         private function updateInterface():void
         {
             if(directories.length>0)
-                titleMC.setUp(new File(directories[selectedDirectory]).nativePath,false,false,false,false,false,true);
+            {
+                titleMC.setUp(new File(directories[0]).nativePath,false,false,false,false,false,true);
+            }
             else
                 showWarning();
             if(directories.length>1)
@@ -161,7 +158,8 @@ package parts
         {
             trace("Hi");
             event.stopImmediatePropagation();
-            selectedDirectory = uint(event.linkData.id);
+            var selectedDirectory:uint = uint(event.linkData.id);
+            directories.unshift(directories.removeAt(selectedDirectory));
             updateInterface();
         }
     }
