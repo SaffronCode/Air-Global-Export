@@ -7,6 +7,8 @@ package parts.exporterFile
     import flash.utils.setTimeout;
     import parts.jsonConfig.AsConfig;
     import contents.alert.Alert;
+    import popForm.PopButtonData;
+    import popForm.PopMenuEvent;
 
     public class Exporter extends MovieClip
     {
@@ -45,10 +47,20 @@ package parts.exporterFile
                 function onSearchDone(fileList:Vector.<File>):void
                 {
                     Hints.hide();
-                    if(fileList.length>1)
+                    if(fileList.length>0)
                     {
-                        Hints.selector('','Select your Fla file from the list',)
+                        var relatedFileList:Array = [] ;
+                        for(var i:int = 0 ; i<fileList.length ; i++)
+                        {
+                            relatedFileList.push(new PopButtonData(FileManager.getRelatedTarget(projectFolder,fileList[i]),1,i));
+                        }
+                        Hints.selector('','Select your Fla file from the list',relatedFileList,onFileSelected);
                     }
+                }
+
+                function onFileSelected(e:PopMenuEvent):void
+                {
+                    Alert.show("fla : "+e.buttonTitle);
                 }
             }
 
