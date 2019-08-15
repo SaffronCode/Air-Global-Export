@@ -9,26 +9,11 @@ package parts
 
     public class GlobalSetting extends MovieClip
     {
-        private const   id_air_location:String = "id_air_location" ,
-                        id_cert_ios_location:String = "id_cert_ios_location",
-                        id_cert_ios_dev_location:String = "id_cert_ios_dev_location",
-                        id_cert_android_location:String = "id_cert_android_location";
-
-        private var airLocation:File,
-                    certIOS:File,
-                    certIOSDev:File,
-                    certAndroid :File ;
-
         private var airCompilersList:FolderManager ;
 
         public function GlobalSetting()
         {
             super();
-
-            airLocation = loadFileIfExists(id_air_location);
-            certIOS = loadFileIfExists(id_cert_ios_location);
-            certIOSDev = loadFileIfExists(id_cert_ios_dev_location);
-            certAndroid = loadFileIfExists(id_cert_android_location);
 
             airCompilersList = Obj.get("compiler_list_mc",this);
             airCompilersList.setUp(isAirCompilderFolder)
@@ -82,7 +67,7 @@ package parts
 
         public function needToSetUp():Boolean
         {
-            return airLocation==null ;
+            return airCompilersList.getSelectedFile()==null ;
         }
     }
 }

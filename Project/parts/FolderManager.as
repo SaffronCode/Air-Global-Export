@@ -162,5 +162,17 @@ package parts
             directories.unshift(directories.removeAt(selectedDirectory));
             updateInterface();
         }
+
+        public function getSelectedFile():File
+        {
+            if(directories.length==0)
+            {
+                return null ;
+            }
+            else
+            {
+                return fileControllerFunction(new File(directories[0]));
+            }
+        }
     }
 }
