@@ -10,6 +10,8 @@ package parts.exporterFile
     import contents.PageData;
     import contents.LinkData;
     import contents.alert.Alert;
+    import appManager.event.AppEventContent;
+    import appManager.event.AppEvent;
 
     public class ProjectsList extends MovieClip
     {
@@ -30,6 +32,8 @@ package parts.exporterFile
 
             currentProjectTitle = Obj.get("current_project_txt",this);
             allProjectsList = Obj.get("list_mc",this);
+            allProjectsList.fadeScroll = true ;
+            allProjectsList.addEventListener(AppEventContent.PAGE_CHANGES,switchProject);
 
             DragAndDrop.activateDragAndDrop(this,aDirecotryDropped,null,true);
 
@@ -90,5 +94,13 @@ package parts.exporterFile
                     allProjectsList.setUp(pageData);
                 }
             }
+
+        private function switchProject(event:AppEventContent):void
+        {
+            var projectIndex:int = int(event.linkData.id);
+            directories.unshift(directories.removeAt(projectIndex));
+            updateInterface();
+            saveDirectories();
+        }
     }
 }
