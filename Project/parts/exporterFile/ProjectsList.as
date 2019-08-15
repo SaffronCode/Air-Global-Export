@@ -12,6 +12,7 @@ package parts.exporterFile
     import contents.alert.Alert;
     import appManager.event.AppEventContent;
     import appManager.event.AppEvent;
+    import flash.events.MouseEvent;
 
     public class ProjectsList extends MovieClip
     {
@@ -20,9 +21,13 @@ package parts.exporterFile
 
         private var allProjectsList:DynamicLinks ;
 
+        private var addProjectMC:MovieClip ;
+
         private var directories:Array ;
 
         private const id_saved_projects:String = "id_saved_projects" ;
+
+        private var projectSelected:Function ;
 
         public function ProjectsList()
         {
@@ -34,6 +39,11 @@ package parts.exporterFile
             allProjectsList = Obj.get("list_mc",this);
             allProjectsList.fadeScroll = true ;
             allProjectsList.addEventListener(AppEventContent.PAGE_CHANGES,switchProject);
+
+            addProjectMC = Obj.get("add_project_mc",this);
+            addProjectMC.addEventListener(MouseEvent.CLICK,function(e){
+                FileManager.browseForDirectory(addDirectory,"Select your project Directory");
+            })
 
             DragAndDrop.activateDragAndDrop(this,aDirecotryDropped,null,true);
 
@@ -66,19 +76,24 @@ package parts.exporterFile
 
             private function aDirecotryDropped(directory:Vector.<File>):void
             {
-                var folderIndex:int ;
-                Alert.show("directory[0].nativePath : " +directory[0].nativePath);
-                if((folderIndex = directories.indexOf(directory[0].nativePath))==-1)
-                {
-                    directories.push(directory[0].nativePath);
-                }
-                else
-                {
-                    directories.unshift(directories.removeAt(folderIndex));
-                }
-                saveDirectories();
-                updateInterface();
+                addDirectory(directory[0]);
             }
+
+                private function addDirectory(directory:File):void
+                {
+                    var folderIndex:int ;
+                    if((folderIndex = directories.indexOf(directory.nativePath))==-1)
+                    {
+                        directories.unshift(directory.nativePath);
+                    }
+                    else
+                    {
+                        directories.unshift(directories.removeAt(folderIndex));
+                    }
+                    
+                    saveDirectories();
+                    updateInterface();
+                }
 
 
             private function updateInterface():void
@@ -87,12 +102,15 @@ package parts.exporterFile
                 if(directories.length>0)
                 {
                     currentProjectTitle.setUp(new File(directories[0]).name);
-                    for(var i:int = 1 ; i<directories.length ; i++)
+                    for(var i:int = 0 ; i<directories.length ; i++)
                     {
                         pageData.links1.push(new LinkData().createLinkFor(i,null,-1,new File(directories[i]).name));
                     }
                     allProjectsList.setUp(pageData);
                 }
+            
+                if(projectSelected!=null)
+                    projectSelected()
             }
 
         private function switchProject(event:AppEventContent):void
@@ -101,6 +119,29 @@ package parts.exporterFile
             directories.unshift(directories.removeAt(projectIndex));
             updateInterface();
             saveDirectories();
+        }
+
+
+        public function setUp(onProjectSelected:Function):void
+        {
+            projectSelected = onProjectSelected ;
+            projectSelected();
+        }
+
+        public function getCurrentProjectFolder():File
+        {
+            if(directories.length>0)
+            {
+                return new File(directories[0]);
+            }
+            return null ;
+        }
+
+        public function removeCurrentProject():void
+        {
+            directories.shift();
+            saveDirectories();
+            updateInterface();
         }
     }
 }
