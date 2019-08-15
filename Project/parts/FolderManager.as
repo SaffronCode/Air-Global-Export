@@ -117,9 +117,14 @@ package parts
             }
             for(var i:int = 0 ; i<files.length ; i++)
             {
-                if(directories.indexOf(files[i].nativePath)==-1)
+                var doundedIndex:int ;
+                if((doundedIndex=directories.indexOf(files[i].nativePath))==-1)
                 {
                     directories.unshift(directory.nativePath);
+                }
+                else
+                {
+                    directories.unshift(directories.removeAt(doundedIndex));
                 }
             }
             if(files.length>0)
