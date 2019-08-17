@@ -1,4 +1,4 @@
-package parts.exporterFile
+﻿package parts.exporterFile
 //parts.exporterFile.Exporter
 {
     import flash.display.MovieClip;
@@ -10,6 +10,7 @@ package parts.exporterFile
     import popForm.PopButtonData;
     import popForm.PopMenuEvent;
     import contents.TextFile;
+    import com.mteamapp.JSONParser;
 
     public class Exporter extends MovieClip
     {
@@ -40,6 +41,10 @@ package parts.exporterFile
             {
                 Hints.ask("","There is no jsonConfig file in your directory. Do you want to create it?",createConfigJSONFile,null,removeThisProjectFolder)
             }
+            else
+            {
+                createConfigJSONFile();
+            }
         }
 
             private function createConfigJSONFile():void
@@ -49,9 +54,28 @@ package parts.exporterFile
                 var jsonConfig:File = projectFolder.resolvePath("asconfig.json");
 
                 var jsonModel:AsConfig = new AsConfig();
-                Hints.pleaseWait();
+                if(jsonConfig.exists)
+                {
+                    Hints.pleaseWait();
+                    var loadedJSONString:String = TextFile.load(jsonConfig);
+                    loadedJSONString = loadedJSONString.replace("source-path","source_path").replace("external-library-path","external_library_path").replace(/,([\n\r\t\s\^]*\])/gi,"$1");
+                    trace("loadedJSON : "+loadedJSONString);
+                    try
+                    {
+                        JSONParser.parse(loadedJSONString,jsonModel);
+                        continueToCompleteJSON();
+                    }
+                    catch(e:Error)
+                    {
+                        Hints.show("asconfig.json pars error!")
+                    }
+                }
+                else
+                {
+                    Hints.pleaseWait();
+                    FileManager.searchFor(projectFolder,'*.fla',onSearchDone);
+                }
 
-                FileManager.searchFor(projectFolder,'*.fla',onSearchDone);
 
                 function onSearchDone(fileList:Vector.<File>):void
                 {
@@ -65,9 +89,17 @@ package parts.exporterFile
                         }
                         Hints.selector('','Select your Fla file from the list',relatedFileList,onFileSelected);
                     }
-                    else
+                    else if(fileList.length==1)
                     {
                         setFla(fileList[0])
+                    }
+                    else if(FileManager.searchPattern.indexOf('xfl')==-1)
+                    {
+                        FileManager.searchFor(projectFolder,'*.xfl',onSearchDone);
+                    }
+                    else
+                    {
+                        Hints.show("No Fla file detected on your project directory.")
                     }
                 }
 
@@ -123,7 +155,14 @@ package parts.exporterFile
                     var mainASFile:File ;
                     if(mainFlaFile!=null)
                     {
-                        mainASFile = mainFlaFile.parent.resolvePath("Main.as") ;
+                        if(mainFlaFile.extension.toLowerCase().indexOf('xfl')==-1)
+                        {
+                            mainASFile = mainFlaFile.parent.resolvePath("Main.as") ;
+                        }
+                        else
+                        {
+                            mainASFile = mainFlaFile.parent.parent.resolvePath("Main.as") ;
+                        }
                     }
                     else
                     {
@@ -146,13 +185,16 @@ package parts.exporterFile
                 {
                     if(asFile!=null)
                         jsonModel.files.push(FileManager.getRelatedTarget(projectFolder,asFile));
+                    
+                    jsonModel.type = "app";
+                    jsonModel.config = "airmobile";
+                    
+                    
                     continueToCompleteJSON();
                 }
 
                 function continueToCompleteJSON():void
                 {
-                    jsonModel.type = "app";
-                    jsonModel.config = "airmobile";
 
                     var externalLibraryIndex:int = -1 ;
 
@@ -168,6 +210,7 @@ package parts.exporterFile
                         }
                         else
                         {
+                            FileManager.cancelSearch();
                             exprotJSON();
                         }
                     }
@@ -180,7 +223,9 @@ package parts.exporterFile
 
                     function asItemFounded(files:Vector.<File>):void
                     {
-                        jsonModel.compilerOptions.source_path.push(externalLibraries[externalLibraryIndex].nativePath);
+                        var externalLibPath:String = externalLibraries[externalLibraryIndex].nativePath ;
+                        if(jsonModel.compilerOptions.source_path.indexOf(externalLibPath)==-1)
+                            jsonModel.compilerOptions.source_path.push(externalLibPath);
                         FileManager.cancelSearch();
                         checkForSWC();
                     }
@@ -197,8 +242,9 @@ package parts.exporterFile
 
                     function swcItemFounded(files:Vector.<File>):void
                     {
-                        trace(externalLibraries.length+" vs "+externalLibraryIndex);
-                        jsonModel.compilerOptions.external_library_path.push(externalLibraries[externalLibraryIndex].nativePath);
+                        var externalLibPath:String = externalLibraries[externalLibraryIndex].nativePath ;
+                        if(jsonModel.compilerOptions.external_library_path.indexOf(externalLibPath)==-1)
+                            jsonModel.compilerOptions.external_library_path.push(externalLibPath);
                         FileManager.cancelSearch();
                         nextItemSearch();
                     }
@@ -220,7 +266,7 @@ package parts.exporterFile
                 {
                     Hints.hide();
                     var jsonString:String = JSON.stringify(jsonModel,null,'\t');
-                    jsonString.replace("source_path","source-path").replace("external_library_path","external-library-path");
+                    jsonString = jsonString.replace("source_path","source-path").replace("external_library_path","external-library-path");
                     TextFile.save(jsonConfig,jsonString);
                 }
             }
