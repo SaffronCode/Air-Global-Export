@@ -21,6 +21,7 @@ package
             super();
 
             TextPutter.defaultResolution = 2 ;
+            UnicodeStatic.deactiveConvertor = true ;
 
             FrameGenerator.createFrame(stage);
 
