@@ -168,6 +168,16 @@ package parts
             updateInterface();
         }
 
+        public function getAllFiles():Vector.<File>
+        {
+            var filesList:Vector.<File> = new Vector.<File>();
+            for(var i:int = 0 ; i<directories.length ; i++)
+            {
+                filesList.push(new File(directories[i]));
+            }
+            return filesList ;
+        }
+
         public function getSelectedFile():File
         {
             if(directories.length==0)

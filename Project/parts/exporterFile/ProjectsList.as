@@ -36,6 +36,8 @@ package parts.exporterFile
             loadDirectories();
 
             currentProjectTitle = Obj.get("current_project_txt",this);
+            currentProjectTitle.buttonMode = true ;
+            currentProjectTitle.addEventListener(MouseEvent.CLICK,openCurrentProject);
             allProjectsList = Obj.get("list_mc",this);
             allProjectsList.fadeScroll = true ;
             allProjectsList.addEventListener(AppEventContent.PAGE_CHANGES,switchProject);
@@ -135,6 +137,15 @@ package parts.exporterFile
                 return new File(directories[0]);
             }
             return null ;
+        }
+
+        private function openCurrentProject(e:MouseEvent=null):void
+        {
+            var current:File = getCurrentProjectFolder();
+            if(current!=null)
+            {
+                current.openWithDefaultApplication();
+            }
         }
 
         public function removeCurrentProject():void

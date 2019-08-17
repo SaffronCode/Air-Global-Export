@@ -30,6 +30,7 @@ package
 
             exporterPartMC = Obj.findThisClass(Exporter,this);
             exporterPartMC.visible = !globalSettingMC.visible ;
+            exporterPartMC.setLibraries(globalSettingMC.getLibraries());
 
             settingBTN = Obj.get("setting_btn",this);
             settingBTN.buttonMode = true;
@@ -37,6 +38,7 @@ package
                 globalSettingMC.visible = !globalSettingMC.visible ;
                 exporterPartMC.visible = !globalSettingMC.visible ;
                 settingButtonFrame();
+                exporterPartMC.setLibraries(globalSettingMC.getLibraries());
             });
 
             generateExportGenerator();

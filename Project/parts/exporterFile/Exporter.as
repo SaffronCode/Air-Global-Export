@@ -15,6 +15,8 @@ package parts.exporterFile
     {
         private var projectList:ProjectsList;
 
+        private var externalLibraries:Vector.<File> ;
+
         public function Exporter()
         {
             super();
@@ -25,13 +27,18 @@ package parts.exporterFile
             },0);
         }
 
+        public function setLibraries(libraries:Vector.<File>):void
+        {
+            externalLibraries = libraries ;
+        }
+
         private function onProjectSelected():void
         {
             var projectFolder:File = projectList.getCurrentProjectFolder();
             var jsonConfig:File = projectFolder.resolvePath("asconfig.json");
             if(!jsonConfig.exists)
             {
-                Hints.ask("","There is no jsonConfig file in your directory. Do you whant to create it?",createConfigJSONFile,null,removeThisProjectFolder)
+                Hints.ask("","There is no jsonConfig file in your directory. Do you want to create it?",createConfigJSONFile,null,removeThisProjectFolder)
             }
         }
 
@@ -84,23 +91,14 @@ package parts.exporterFile
                 function searchForMainClass():void
                 {
                     Hints.pleaseWait();
-                    FileManager.searchFor(projectFolder,'*.as',asFilesFounded,asFilesFounded)
+                    FileManager.searchFor(projectFolder,'*.as',asFilesFoundedFinal,asFilesFounded)
                 }
 
                 function asFilesFounded(asFiles:Vector.<File>):void
                 {
                     if(asFiles.length==0)
                     {
-                        Hints.show("Main.as file created on your source project.");
-                        var sampleMain:String = 'package \n{\n    import flash.display.MovieClip;\n\n    public class Main extends MovieClip\n    {\n        public function Main()\n        {\n            super();\n        }\n    }\n}'
-                        if(mainFlaFile!=null)
-                        {
-                            TextFile.save(mainFlaFile.parent.resolvePath("Main.as"),sampleMain);
-                        }
-                        else
-                        {
-                            TextFile.save(projectFolder.resolvePath("Main.as"),sampleMain);
-                        }
+                        createMainASFile();
                     }
                     else
                     {
@@ -111,11 +109,37 @@ package parts.exporterFile
                         }
                         Hints.selector("","Select the main AS file of your project",asFileList,asFileSelected);
                     }
+
+                    function asFileSelected(e:PopMenuEvent):void
+                    {
+                        setTheMainASFile(e.buttonData as File);
+                    }
                 }
 
-                function asFileSelected(e:PopMenuEvent):void
+                function createMainASFile():void
                 {
-                    setTheMainASFile(e.buttonData as File);
+                    Hints.show("Main.as file created on your source project.");
+                    var sampleMain:String = 'package \n{\n    import flash.display.MovieClip;\n\n    public class Main extends MovieClip\n    {\n        public function Main()\n        {\n            super();\n        }\n    }\n}'
+                    var mainASFile:File ;
+                    if(mainFlaFile!=null)
+                    {
+                        mainASFile = mainFlaFile.parent.resolvePath("Main.as") ;
+                    }
+                    else
+                    {
+                        mainASFile = projectFolder.resolvePath("Main.as");
+                    }
+                    TextFile.save(mainASFile,sampleMain);
+                    setTheMainASFile(mainASFile);
+                }
+
+                function asFilesFoundedFinal(asFiles:Vector.<File>):void
+                {
+                    if(asFiles.length==1)
+                    {
+                        Hints.hide();
+                        setTheMainASFile(asFiles[0]);
+                    }
                 }
 
                 function setTheMainASFile(asFile:File):void
@@ -130,8 +154,74 @@ package parts.exporterFile
                     jsonModel.type = "app";
                     jsonModel.config = "airmobile";
 
-                    //TODO
-                    throw "Save external libraries and as libraries"
+                    var externalLibraryIndex:int = -1 ;
+
+                    //Detect Library types
+                    nextItemSearch();
+
+                    function nextItemSearch():void
+                    {
+                        externalLibraryIndex++;
+                        if(externalLibraries!=null && externalLibraries.length>externalLibraryIndex)
+                        {
+                            checkLibraryForAS();
+                        }
+                        else
+                        {
+                            exprotJSON();
+                        }
+                    }
+
+                    function checkLibraryForAS():void
+                    {
+                        Hints.pleaseWait(cancelSearchToDetectLibraries);
+                        FileManager.searchFor(externalLibraries[externalLibraryIndex],'*.as',noAsItemFounded,asItemFounded);
+                    }
+
+                    function asItemFounded(files:Vector.<File>):void
+                    {
+                        jsonModel.compilerOptions.source_path.push(externalLibraries[externalLibraryIndex].nativePath);
+                        FileManager.cancelSearch();
+                        checkForSWC();
+                    }
+
+                    function noAsItemFounded(files:Vector.<File>):void
+                    {
+                        checkForSWC();
+                    }
+
+                    function checkForSWC():void
+                    {
+                        FileManager.searchFor(externalLibraries[externalLibraryIndex],'*.swc',noSWCItemFounded,swcItemFounded);
+                    }
+
+                    function swcItemFounded(files:Vector.<File>):void
+                    {
+                        trace(externalLibraries.length+" vs "+externalLibraryIndex);
+                        jsonModel.compilerOptions.external_library_path.push(externalLibraries[externalLibraryIndex].nativePath);
+                        FileManager.cancelSearch();
+                        nextItemSearch();
+                    }
+
+                    function noSWCItemFounded(files:Vector.<File>):void
+                    {
+                        nextItemSearch();
+                    }
+
+                    function cancelSearchToDetectLibraries():void
+                    {
+                        FileManager.cancelSearch();
+                    }
+                }
+
+                ////////////////////////////
+
+                function exprotJSON():void
+                {
+                    Hints.hide();
+                    var jsonString:String = JSON.stringify(jsonModel,null,'\t');
+                    jsonString.replace("source_path","source-path").replace("external_library_path","external-library-path");
+                    TextFile.save(jsonConfig,jsonString);
                 }
             }
 

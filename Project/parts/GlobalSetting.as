@@ -11,12 +11,28 @@ package parts
     {
         private var airCompilersList:FolderManager ;
 
+        private var externalLibrariesList:FolderManager ;
+
         public function GlobalSetting()
         {
             super();
 
             airCompilersList = Obj.get("compiler_list_mc",this);
-            airCompilersList.setUp(isAirCompilderFolder)
+            airCompilersList.setUp(isAirCompilderFolder);
+
+            externalLibrariesList = Obj.get("external_libraries_mc",this);
+            externalLibrariesList.setUp(libraryFolderControll);
+        }
+
+
+        public function getLibraries():Vector.<File>
+        {
+            return externalLibrariesList.getAllFiles();
+        }
+
+        private function libraryFolderControll(aFolder:File):File
+        {
+            return aFolder!=null && aFolder.exists && aFolder.isDirectory?aFolder:null ;
         }
 
         private function isAirCompilderFolder(folder:File):File
