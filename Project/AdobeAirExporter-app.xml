@@ -18,11 +18,11 @@
 -->
 <application xmlns="http://ns.adobe.com/air/application/32.0">
   <id>com.saffroncodesdk.AdobeAirExporter</id>
-  <versionNumber>1.0.2</versionNumber>
-  <filename>AdobeAirExporter</filename>
+  <versionNumber>1.0.3</versionNumber>
+  <filename>Adobe Air Exporter</filename>
   <description/>
-  <name>AdobeAirExporter</name>
-  <copyright/>
+  <name>Adobe Air Exporter</name>
+  <copyright>saffroncodesdk.com</copyright>
   <initialWindow>
     <content>AdobeAirExporter.swf</content>
     <systemChrome>none</systemChrome>
