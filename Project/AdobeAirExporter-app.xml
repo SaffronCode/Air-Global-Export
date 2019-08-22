@@ -17,8 +17,8 @@
 	</name>
 -->
 <application xmlns="http://ns.adobe.com/air/application/32.0">
-  <id>AdobeAirExporter</id>
-  <versionNumber>1.0.1</versionNumber>
+  <id>com.saffroncodesdk.AdobeAirExporter</id>
+  <versionNumber>1.0.2</versionNumber>
   <filename>AdobeAirExporter</filename>
   <description/>
   <name>AdobeAirExporter</name>
