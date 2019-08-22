@@ -8,6 +8,17 @@ package
     import dynamicFrame.FrameGenerator;
     import appManager.displayContentElemets.TitleText;
     import parts.exporterFile.Exporter;
+    import flash.net.URLLoader;
+    import flash.net.URLLoaderDataFormat;
+    import flash.events.Event;
+    import flash.net.URLRequest;
+    import flash.net.navigateToURL;
+    import flash.filesystem.File;
+    import flash.events.ProgressEvent;
+    import flash.desktop.NativeApplication;
+    import flash.events.IOErrorEvent;
+    import flash.text.TextField;
+    import flash.utils.setTimeout;
 
     public class Main extends Sprite
     {
@@ -44,8 +55,12 @@ package
             generateExportGenerator();
             settingButtonFrame();
 
+            var newVersionMC:MovieClip = Obj.get("new_version_mc",this);
+			var hintTF:TextField = Obj.get("hint_mc",newVersionMC);
+			newVersionMC.addEventListener(MouseEvent.CLICK,openUpdator);
 
-            var fileURL:String = "https://github.com/SaffronCode/Adobe-Air-Assistant/raw/master/build/AppGenerator.air" ;
+
+            var fileURL:String = "https://github.com/SaffronCode/Air-Global-Export/raw/master/Project/AdobeAirExporter.air" ;
 			
 			function openUpdator(e:MouseEvent):void
 			{
