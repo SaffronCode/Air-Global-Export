@@ -1,5 +1,7 @@
 # Air-Global-Export
 This is a package of command saved on a bat file to help you export your swf project and its dependency without need to open your IDE
+
+<p align="center"><a href="https://github.com/SaffronCode/Air-Global-Export/raw/master/Project/AdobeAirExporter.air">Downlad App Exporter (Beta version)</a></p>
 <p dir="rtl">به کمک فایل ExporterGenerator.bat می توانید فایل swf را به همراه فایل های مورد نیاز و فایل های ane با چند دستور ساده و بدون نیاز به باز کردن محیط برنامه نویسیتان به فرمت های apk و ipa به صورت همزمان تبدیل کنید.</p>
 <br>
 
