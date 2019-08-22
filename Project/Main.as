@@ -86,7 +86,7 @@ package
 			}
 			
 			newVersionMC.visible = false ;
-			var urlLoader:URLLoader = new URLLoader(new URLRequest("https://github.com/SaffronCode/Adobe-Air-Assistant/raw/master/src/AppGenerator-app.xml?"+new Date().time));
+			var urlLoader:URLLoader = new URLLoader(new URLRequest("https://raw.githubusercontent.com/SaffronCode/Air-Global-Export/master/Project/AdobeAirExporter-app.xml?"+new Date().time));
 			urlLoader.dataFormat = URLLoaderDataFormat.TEXT ;
 			urlLoader.addEventListener(Event.COMPLETE,function(e){
 				var versionPart:Array = String(urlLoader.data).match(/<versionNumber>.*<\/versionNumber>/gi);
