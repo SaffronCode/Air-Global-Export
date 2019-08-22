@@ -43,6 +43,67 @@ package
 
             generateExportGenerator();
             settingButtonFrame();
+
+
+            var fileURL:String = "https://github.com/SaffronCode/Adobe-Air-Assistant/raw/master/build/AppGenerator.air" ;
+			
+			function openUpdator(e:MouseEvent):void
+			{
+				newVersionMC.removeEventListener(MouseEvent.CLICK,openUpdator);
+				var loader:URLLoader = new URLLoader(new URLRequest(fileURL));
+				loader.dataFormat = URLLoaderDataFormat.BINARY ;
+				
+				loader.addEventListener(Event.COMPLETE,loaded);
+				loader.addEventListener(ProgressEvent.PROGRESS,progress)
+				
+				hintTF.text = "Please wait ..." ;
+				
+				function progress(e:ProgressEvent):void
+				{
+					hintTF.text = "Please wait ...(%"+Math.round((e.bytesLoaded/e.bytesTotal)*100)+")" ;
+				}
+				
+				function loaded(e:Event):void
+				{
+					var fileTarget:File = File.createTempDirectory().resolvePath('SaffronAppGenerator.air') ;
+					FileManager.seveFile(fileTarget,loader.data);
+					
+					fileTarget.openWithDefaultApplication();
+					
+					hintTF.text = "The installer should be open now...";
+					
+					setTimeout(function(e){
+						NativeApplication.nativeApplication.exit();
+					},2000);
+					
+					newVersionMC.addEventListener(MouseEvent.CLICK,function(e)
+					{
+						//navigateToURL(new URLRequest(fileTarget.url));
+						navigateToURL(new URLRequest(fileURL));
+					});
+				}
+				
+			}
+			
+			newVersionMC.visible = false ;
+			var urlLoader:URLLoader = new URLLoader(new URLRequest("https://github.com/SaffronCode/Adobe-Air-Assistant/raw/master/src/AppGenerator-app.xml?"+new Date().time));
+			urlLoader.dataFormat = URLLoaderDataFormat.TEXT ;
+			urlLoader.addEventListener(Event.COMPLETE,function(e){
+				var versionPart:Array = String(urlLoader.data).match(/<versionNumber>.*<\/versionNumber>/gi);
+				if(versionPart.length>0)
+				{
+					versionPart[0] = String(versionPart[0]).split('<versionNumber>').join('').split('</versionNumber>').join('');
+					trace("version loaded : "+versionPart[0]+' > '+(DevicePrefrence.appVersion==versionPart[0]));
+					trace("DevicePrefrence.appVersion : "+DevicePrefrence.appVersion);
+					if(!(DevicePrefrence.appVersion==versionPart[0]))
+					{
+						newVersionMC.visible = true ;
+						newVersionMC.alpha = 0 ;
+						AnimData.fadeIn(newVersionMC);
+					}
+				}
+			});
+			urlLoader.addEventListener(IOErrorEvent.IO_ERROR,function(e){});
         }
 
         private function settingButtonFrame():void

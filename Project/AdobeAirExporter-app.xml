@@ -18,7 +18,7 @@
 -->
 <application xmlns="http://ns.adobe.com/air/application/32.0">
   <id>AdobeAirExporter</id>
-  <versionNumber>1.0</versionNumber>
+  <versionNumber>1.0.0</versionNumber>
   <filename>AdobeAirExporter</filename>
   <description/>
   <name>AdobeAirExporter</name>
@@ -31,8 +31,16 @@
     <fullScreen>false</fullScreen>
     <aspectRatio>portrait</aspectRatio>
     <renderMode>auto</renderMode>
+    <maximizable>true</maximizable>
+    <minimizable>true</minimizable>
+    <resizable>true</resizable>
   </initialWindow>
-  <icon/>
+  <icon>
+    <image16x16>AppIconsForPublish/16.png</image16x16>
+    <image32x32>AppIconsForPublish/32.png</image32x32>
+    <image48x48>AppIconsForPublish/48.png</image48x48>
+    <image128x128>AppIconsForPublish/128.png</image128x128>
+  </icon>
   <customUpdateUI>false</customUpdateUI>
   <allowBrowserInvocation>false</allowBrowserInvocation>
 </application>
