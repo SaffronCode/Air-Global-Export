@@ -19,8 +19,6 @@ rem fist initializes
 	if exist "%passwordfile%" (
 		set /p passwordAnd=<"%passwordfile%"
 		set certificate_passAnd=%passwordAnd%
-		echo PassWord Android: %certificate_passAnd%
-		pause
 	) else (
 		set certificate_passAnd=%certificate_pass%
 	)
