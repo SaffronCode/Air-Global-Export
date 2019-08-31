@@ -14,6 +14,17 @@ rem fist initializes
 		set /p password=<"%passwordfile%"
 	)
 	set certificate_pass=%password%
+	
+	set passwordfile=%certfolder%\passwordsAnd
+	if exist "%passwordfile%" (
+		set /p passwordAnd=<"%passwordfile%"
+		set certificate_passAnd=%passwordAnd%
+		echo PassWord Android: %certificate_passAnd%
+		pause
+	) else (
+		set certificate_passAnd=%certificate_pass%
+	)
+	
 	if not exist exportparams (
 		if ["%aircompiler%"]==[""] (
 			goto environment_vars
@@ -216,7 +227,7 @@ set ios_contents=Default~iphone.png Default@2x~iphone.png Default-568h@2x~iphone
 	
 
 set ios_pass=%certificate_pass%
-set android_pass=%certificate_pass%
+set android_pass=%certificate_passAnd%
 
 if not ["%provision_dist%"]==[ (
 	if ["%provision_dist%"]==["%provision_dist:.mobileprovision=%"] (
