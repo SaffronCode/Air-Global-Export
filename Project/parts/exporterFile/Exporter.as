@@ -11,12 +11,21 @@
     import popForm.PopMenuEvent;
     import contents.TextFile;
     import com.mteamapp.JSONParser;
+    import flash.events.MouseEvent;
 
     public class Exporter extends MovieClip
     {
         private var projectList:ProjectsList;
 
         private var externalLibraries:Vector.<File> ;
+
+        private var createExporterFilesMC:MovieClip ;
+
+        private var batDirectory:File ;
+
+        private var exportDirectory:File ;
+
+        private var currentExportParams:ExportParams ;
 
         public function Exporter()
         {
@@ -26,6 +35,115 @@
             setTimeout(function(){
                 projectList.setUp(onProjectSelected);
             },0);
+
+            batDirectory = File.applicationDirectory.resolvePath("BatFiles");
+
+            createExporterFilesMC = Obj.get("create_exporter_files_mc",this);
+            createExporterFilesMC.addEventListener(MouseEvent.CLICK,saveBatFiles);
+            disableExporterButton();
+        }
+
+        private function saveBatFiles(e:MouseEvent):void
+        {
+            exportDirectory = null ;
+            var projectFolder:File = projectList.getCurrentProjectFolder();
+            Hints.pleaseWait();
+            FileManager.searchFor(projectFolder,'*.swf',swfFileFounded);
+
+            function swfFileFounded(swfFileList:Vector.<File>):void
+            {
+                if(swfFileList.length==0)
+                {
+                    Hints.show("You didn't export any SWF file yet.")
+                }
+                else if(swfFileList.length==1)
+                {
+                    Hints.hide();
+                    trace("Export folder founded");
+                    saveExportDirectory(swfFileList[0].parent);
+                }
+                else
+                {
+                    var directories:Array = [];
+                    for(var i:int = 0 ; i<swfFileList.length ; i++)
+                    {
+                        var brotherFiles:Array = swfFileList[i].parent.getDirectoryListing();
+                        for(var j:int = 0 ; j<brotherFiles.length ; j++)
+                        {
+                            var brotherFile:File = brotherFiles[j] as File ;
+                            if(brotherFile.extension == 'xml')
+                            {
+                                var xmlFile:String = (TextFile.load(brotherFile));
+                                if(xmlFile.indexOf(swfFileList[i].name)!=-1 && xmlFile.indexOf("application")!=-1)
+                                {
+                                    directories.push(new PopButtonData(swfFileList[i].name,3,i,true,false,false,'',swfFileList[i]));
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    if(directories.length==0)
+                    {
+                        swfFileFounded(new Vector.<File>())
+                    }
+                    else if(directories.length==1)
+                    {
+                        saveExportDirectory((directories[0].dynamicData as File).parent);
+                    }
+                    else
+                    {
+                        Hints.selector("Select the output SWF file.",'',directories,onExportDirectorySelected);
+                    }
+                    function onExportDirectorySelected(e:PopButtonData):void
+                    {
+                        var selectedSWF:File = e.dynamicData as File ;
+                        if(selectedSWF!=null)
+                        {
+                            saveExportDirectory(selectedSWF.parent);
+                        }
+                    }
+                }
+            }
+
+            function saveExportDirectory(exportLocation:File):void
+            {
+                if(!exportLocation.isDirectory)
+                {
+                    throw "You should select a directory!";
+                }
+                exportDirectory = exportLocation ;
+                copyAllBathFilesToExportDirectory();
+                Hints.hide();
+
+                updateExportParams();
+            }
+        }
+
+            private function copyAllBathFilesToExportDirectory():void
+            {
+                FileManager.copyFolder(batDirectory,exportDirectory,false,null,true);
+            }
+
+            private function updateExportParams():void
+            {
+                currentExportParams = new ExportParams();
+                //Update, create load params TODO
+                var paramFile:File = exportDirectory.resolvePath('exportparams');
+                TextFile.save(paramFile,currentExportParams.toString());
+            }
+
+        private function disableExporterButton():void
+        {
+            createExporterFilesMC.alpha = 0.5;
+            createExporterFilesMC.mouseChildren = false ;
+            createExporterFilesMC.mouseEnabled = false ;
+        }
+
+        private function enableExporterButton():void
+        {
+            createExporterFilesMC.alpha = 1;
+            createExporterFilesMC.mouseEnabled = true ;
+            createExporterFilesMC.buttonMode = true ;
         }
 
         public function setLibraries(libraries:Vector.<File>):void
@@ -36,14 +154,22 @@
         private function onProjectSelected():void
         {
             var projectFolder:File = projectList.getCurrentProjectFolder();
-            var jsonConfig:File = projectFolder.resolvePath("asconfig.json");
-            if(!jsonConfig.exists)
+            if(projectFolder!=null && projectFolder.exists)
             {
-                Hints.ask("","There is no jsonConfig file in your directory. Do you want to create it?",createConfigJSONFile,null,removeThisProjectFolder)
+                var jsonConfig:File = projectFolder.resolvePath("asconfig.json");
+                if(!jsonConfig.exists)
+                {
+                    Hints.ask("","There is no jsonConfig file in your directory. Do you want to create it?",createConfigJSONFile,null,removeThisProjectFolder)
+                }
+                else
+                {
+                    createConfigJSONFile();
+                }
+                enableExporterButton();
             }
             else
             {
-                createConfigJSONFile();
+                disableExporterButton();
             }
         }
 
@@ -204,8 +330,10 @@
                     function nextItemSearch():void
                     {
                         externalLibraryIndex++;
+                        trace("externalLibraryIndex++= "+externalLibraryIndex);
                         if(externalLibraries!=null && externalLibraries.length>externalLibraryIndex)
                         {
+                            trace("externalLibraries.length : "+externalLibraries.length+" vs externalLibraryIndex : "+externalLibraryIndex);
                             checkLibraryForAS();
                         }
                         else
@@ -232,7 +360,8 @@
 
                     function noAsItemFounded(files:Vector.<File>):void
                     {
-                        checkForSWC();
+                        if(files.length==0)
+                            checkForSWC();
                     }
 
                     function checkForSWC():void
@@ -242,16 +371,19 @@
 
                     function swcItemFounded(files:Vector.<File>):void
                     {
+                        trace("swcItemFounded externalLibraryIndex : "+externalLibraryIndex);
                         var externalLibPath:String = externalLibraries[externalLibraryIndex].nativePath ;
                         if(jsonModel.compilerOptions.external_library_path.indexOf(externalLibPath)==-1)
                             jsonModel.compilerOptions.external_library_path.push(externalLibPath);
+                            trace("So cancel the search");
                         FileManager.cancelSearch();
                         nextItemSearch();
                     }
 
                     function noSWCItemFounded(files:Vector.<File>):void
                     {
-                        nextItemSearch();
+                        if(files.length==0)
+                            nextItemSearch();
                     }
 
                     function cancelSearchToDetectLibraries():void
