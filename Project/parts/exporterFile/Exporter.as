@@ -27,6 +27,8 @@
 
         private var currentExportParams:ExportParams ;
 
+        private var currentAirTarget:File ;
+
         public function Exporter()
         {
             super();
@@ -127,6 +129,7 @@
             private function updateExportParams():void
             {
                 currentExportParams = new ExportParams();
+                currentExportParams.setAirpath(currentAirTarget) ;
                 //Update, create load params TODO
                 var paramFile:File = exportDirectory.resolvePath('exportparams');
                 TextFile.save(paramFile,currentExportParams.toString());
@@ -144,6 +147,14 @@
             createExporterFilesMC.alpha = 1;
             createExporterFilesMC.mouseEnabled = true ;
             createExporterFilesMC.buttonMode = true ;
+        }
+
+        public function setAirSDK(airTarget:File):void
+        {
+            if(airTarget!=null)
+                currentAirTarget = new File(airTarget.nativePath) ;
+            else
+                currentAirTarget = null ;
         }
 
         public function setLibraries(libraries:Vector.<File>):void

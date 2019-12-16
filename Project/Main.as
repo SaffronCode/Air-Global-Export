@@ -1,4 +1,4 @@
-package
+﻿package
 {
 
     import flash.display.Sprite;
@@ -19,6 +19,7 @@ package
     import flash.events.IOErrorEvent;
     import flash.text.TextField;
     import flash.utils.setTimeout;
+    import contents.alert.Alert;
 
     public class Main extends Sprite
     {
@@ -42,6 +43,7 @@ package
             exporterPartMC = Obj.findThisClass(Exporter,this);
             exporterPartMC.visible = !globalSettingMC.visible ;
             exporterPartMC.setLibraries(globalSettingMC.getLibraries());
+            exporterPartMC.setAirSDK(globalSettingMC.getSelectedAdobeAir());
 
             settingBTN = Obj.get("setting_btn",this);
             settingBTN.buttonMode = true;
@@ -50,6 +52,7 @@ package
                 exporterPartMC.visible = !globalSettingMC.visible ;
                 settingButtonFrame();
                 exporterPartMC.setLibraries(globalSettingMC.getLibraries());
+                exporterPartMC.setAirSDK(globalSettingMC.getSelectedAdobeAir());
             });
 
             generateExportGenerator();

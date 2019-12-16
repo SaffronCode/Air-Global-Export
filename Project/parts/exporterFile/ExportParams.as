@@ -4,10 +4,19 @@ package parts.exporterFile
     import flash.net.NetworkInterface;
     import flash.net.InterfaceAddress;
     import contents.alert.Alert;
+    import flash.filesystem.File;
 
     public class ExportParams
     {
-        public var airpath:String="D:\\air\\AIR32";
+
+        public function get airpath():String
+        {
+            if(_airpath==null)
+                return '' ;
+            else
+                return _airpath.nativePath ;
+        }
+        private var _airpath:File;
         public var android_cert_pass:String="NewPass123$";
         public var android_certificate:String="D:\\Sepehr\\MTeamCertifications\\MTeam Certification File.p12";
         public var exportname:String="RefahBank";
@@ -38,6 +47,15 @@ package parts.exporterFile
                     }
                 }
             }
+        }
+
+        
+        public function setAirpath(target:File):void
+        {
+            if(target!=null)
+                _airpath = new File(target.nativePath);
+            else
+                _airpath = null ;
         }
         
         public function toString():String

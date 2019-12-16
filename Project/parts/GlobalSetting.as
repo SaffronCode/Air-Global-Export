@@ -30,6 +30,11 @@ package parts
             return externalLibrariesList.getAllFiles();
         }
 
+        public function getSelectedAdobeAir():File
+        {
+            return airCompilersList.getSelectedFile();
+        }
+
         private function libraryFolderControll(aFolder:File):File
         {
             return aFolder!=null && aFolder.exists && aFolder.isDirectory?aFolder:null ;
