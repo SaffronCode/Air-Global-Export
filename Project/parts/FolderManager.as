@@ -14,6 +14,8 @@ package parts
     import appManager.event.AppEvent;
     import appManager.event.AppEventContent;
     import contents.displayPages.LinkItem;
+    import flash.events.Event;
+    import popForm.Hints;
 
     public class FolderManager extends MovieClip
     {
@@ -33,6 +35,8 @@ package parts
         private const   id_folderManager:String = "id_folderManager",
                         id_selectedFile:String="id_selectedFile" ;
 
+        private var isMultifile:Boolean = false ;
+
         public function FolderManager()
         {
             super();
@@ -50,11 +54,26 @@ package parts
             listY0 = list.y ;
             listH0 = list.height ;
             list.addEventListener(AppEventContent.PAGE_CHANGES,changeSelectedFolder);
+            list.addEventListener(Event.CANCEL,removeItem);
             list.addEventListener(MouseEvent.CLICK,preventListClick);
 
             this.addEventListener(MouseEvent.CLICK,openFolderBrowser);
 
             updateInterface();
+        }
+
+        private function removeItem(e:Event):void
+        {
+            var selectedItem:LinkItem = e.target as LinkItem;
+            Hints.ask('',"Do you whant to remove "+selectedItem.myLinkData.name+" from the list?",removeThisItem);
+            function removeThisItem():void
+            {
+                var index:int = int(selectedItem.myLinkData.id);
+                directories.removeAt(index);//(selectedItem.myLinkData.dynamicData as )unshift(directories.removeAt(doundedIndex));
+
+                saveDirectories();
+                updateInterface();
+            }
         }
 
             private function preventListClick(e:MouseEvent):void
@@ -87,9 +106,13 @@ package parts
             GlobalStorage.save(id_folderManager+this.name,directories);
         }
 
-        public function setUp(fileController:Function):void
+        public function setUp(fileController:Function,multiFile:Boolean=false):void
         {
             fileControllerFunction = fileController ;
+            isMultifile = multiFile ;
+            titleMC.visible = !multiFile ;
+
+            list.y = listY0 - int(multiFile)*titleMC.height ;
             
             for(var i:int = 0 ; i<directories.length ; i++)
             {
@@ -141,7 +164,7 @@ package parts
             }
             else
                 showWarning();
-            if(directories.length>1)
+            if(directories.length>0)
             {
                 //list.y = titleMC.y + titleMC.height ;
                 //list.height = listH0 - (list.y-listY0);
@@ -152,6 +175,10 @@ package parts
                 }
                 list.setUp(directoryList);
             }
+            else
+            {
+                list.setUp(new PageData());
+            }
         }
 
             private function showWarning():void
@@ -161,6 +188,8 @@ package parts
 
         private function changeSelectedFolder(event:AppEventContent):void
         {
+            if(isMultifile)
+                return;
             trace("Hi");
             event.stopImmediatePropagation();
             var selectedDirectory:uint = uint(event.linkData.id);

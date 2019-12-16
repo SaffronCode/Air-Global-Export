@@ -21,7 +21,7 @@ package parts
             airCompilersList.setUp(isAirCompilderFolder);
 
             externalLibrariesList = Obj.get("external_libraries_mc",this);
-            externalLibrariesList.setUp(libraryFolderControll);
+            externalLibrariesList.setUp(libraryFolderControll,true);
         }
 
 
