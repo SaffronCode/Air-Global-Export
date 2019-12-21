@@ -25,6 +25,8 @@
 
         private var exportDirectory:File ;
 
+        private var mainSWF:File ;
+
         private var currentExportParams:ExportParams ;
 
         private var currentAirTarget:File ;
@@ -61,13 +63,13 @@
                 {
                     Hints.show("You didn't export any SWF file yet.")
                 }
-                else if(swfFileList.length==1)
+                else/* if(swfFileList.length==1)
                 {
                     Hints.hide();
                     trace("Export folder founded");
-                    saveExportDirectory(swfFileList[0].parent);
+                    saveExportSWFonBinDirectory(swfFileList[0]);
                 }
-                else
+                else*/
                 {
                     var directories:Array = [];
                     for(var i:int = 0 ; i<swfFileList.length ; i++)
@@ -93,7 +95,7 @@
                     }
                     else if(directories.length==1)
                     {
-                        saveExportDirectory((directories[0].dynamicData as File).parent);
+                        saveExportSWFonBinDirectory((directories[0].dynamicData as File));
                     }
                     else
                     {
@@ -104,19 +106,16 @@
                         var selectedSWF:File = e.dynamicData as File ;
                         if(selectedSWF!=null)
                         {
-                            saveExportDirectory(selectedSWF.parent);
+                            saveExportSWFonBinDirectory(selectedSWF);
                         }
                     }
                 }
             }
 
-            function saveExportDirectory(exportLocation:File):void
+            function saveExportSWFonBinDirectory(swfFileLocation:File):void
             {
-                if(!exportLocation.isDirectory)
-                {
-                    throw "You should select a directory!";
-                }
-                exportDirectory = exportLocation ;
+                exportDirectory = swfFileLocation.parent ;
+                mainSWF = new File(swfFileLocation.nativePath);
                 copyAllBathFilesToExportDirectory();
                 Hints.hide();
 
@@ -175,6 +174,7 @@
                     }
                 }
 
+
                 
 
 
@@ -199,11 +199,11 @@
                         else if(ap12List.length==1)
                         {
                             currentExportParams.setiOSP12((ap12List[0] as PopButtonData).dynamicData as File);
-                            buildExportparamsFile();
+                            findSWFandManifest();
                         }
                         else
                         {
-                            buildExportparamsFile();
+                            findSWFandManifest();
                         }
 
                         function onAndroidp12Selected(e:PopMenuEvent):void
@@ -213,9 +213,16 @@
                             {
                                 currentExportParams.setiOSP12(selectedFile);
                             }
-                            buildExportparamsFile();
+                            findSWFandManifest();
                         }
                     }
+                }
+                
+
+                function findSWFandManifest():void
+                {
+                    //FileManager.searchFor(projectList.getCurrentProjectFolder(),'*.xml',)
+                    buildExportparamsFile();
                 }
 
                 function buildExportparamsFile():void
