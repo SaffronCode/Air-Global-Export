@@ -140,7 +140,6 @@
                     FileManager.searchFor(projectList.getCurrentProjectFolder(),'*.p12',p12founded);
                     function p12founded(p12List:Vector.<File>):void
                     {
-                        Alert.show("Cert files list is "+p12List.length+" >>> "+currentAndroidp12);
                         var ap12List:Array = [] ;
                         if(currentAndroidp12!=null)
                         {
