@@ -300,7 +300,7 @@
                         }
                         else if(nativeFolders.length==1)
                         {
-                            currentExportParams.native_folder = ((nativeFolders[0] as PopButtonData).dynamicData as File).nativePath ;
+                            setNativeAdress((nativeFolders[0] as PopButtonData).dynamicData as File) ;
                             findEmbededFiles();
                         }
                         else
@@ -311,10 +311,16 @@
                                 var selectedDirectory:File = e.buttonData as File ;
                                 if(selectedDirectory!=null)
                                 {
-                                    currentExportParams.native_folder = selectedDirectory.nativePath ;
+                                    setNativeAdress(selectedDirectory) ;
                                 }
                                 findEmbededFiles();
                             }
+                        }
+
+                        function setNativeAdress(nativeFile:File):void
+                        {
+                            var relativeTarget:String = FileManager.getRelatedTarget(exportDirectory,nativeFile)
+                            currentExportParams.native_folder = relativeTarget ;
                         }
                     }
                 }
