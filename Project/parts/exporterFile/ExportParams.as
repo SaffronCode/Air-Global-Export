@@ -78,10 +78,10 @@ package parts.exporterFile
         private var _ios_dev_xml_name:File=null;//"RefahBank-app-dist";
         public var swfname:String='';//"RefahBank";
         private var _exportname:String=null;//"RefahBank";
-        
         public var native_folder:String='';//"native";
-        public var contents:String='';//"Data AppIconsForPublish";
         public var ip_adress:String ;
+        
+        public var contents:String='';//"Data AppIconsForPublish";
         public function ExportParams()
         {
             var networkInfo:NetworkInfo = NetworkInfo.networkInfo;

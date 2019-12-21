@@ -296,12 +296,12 @@
 
                         if(nativeFolders.length==0)
                         {
-                            buildExportparamsFile();
+                            findEmbededFiles();
                         }
                         else if(nativeFolders.length==1)
                         {
                             currentExportParams.native_folder = ((nativeFolders[0] as PopButtonData).dynamicData as File).nativePath ;
-                            buildExportparamsFile();
+                            findEmbededFiles();
                         }
                         else
                         {
@@ -313,10 +313,61 @@
                                 {
                                     currentExportParams.native_folder = selectedDirectory.nativePath ;
                                 }
-                                buildExportparamsFile();
+                                findEmbededFiles();
                             }
                         }
                     }
+                }
+
+                function findEmbededFiles():void
+                {
+                    var appIconsFolder:File = exportDirectory.resolvePath("AppIconsForPublish");
+                    var saffronData:File = exportDirectory.resolvePath('Data');
+                    var embededFiles:String = '';
+                    if(appIconsFolder.exists)
+                        embededFiles+=appIconsFolder.name+' ';
+                    if(saffronData.exists && saffronData.resolvePath('data.xml').exists)
+                        embededFiles+=saffronData.name+' ';
+
+
+                    currentExportParams.contents = embededFiles ;
+
+                    Hints.ask("Embed files",(embededFiles!=''?"Embeded files are ("+embededFiles+") ":'')+" Do you whant to add "+(embededFiles!=''?"More ":"")+" files?",addMoreFiles,null,buildExportparamsFile);
+
+                    function addMoreFiles()
+                    {
+                        var files:Array = exportDirectory.getDirectoryListing();
+                        var filesToSelect:Array = [];
+                        var forbidenList:Array= ['.bat','.fla'];
+                        for(var i:int = 0 ; i<files.length ; i++)
+                        {
+                            var aFile:File = files[i] as File;
+                            if(forbidenList.indexOf(aFile.extension.toLowerCase())==-1)
+                            {
+                                filesToSelect.push(new PopButtonData(FileManager.getRelatedTarget(exportDirectory,aFile),2,i,true,false,true,'',aFile));
+                            }
+                        }
+                        //Hints.checkList(filesToSelect,onListSelected);
+
+                        function onListSelected(selectedFiles:Array):void
+                        {
+                            for(var i:int = 0 ; i<selectedFiles.length ; i++)
+                            {
+                                var selectedFile:File = (selectedFiles[i] as PopButtonData).dynamicData as File ;
+                                if(
+                                    (saffronData==null || selectedFile.nativePath!=saffronData.nativePath)
+                                    &&
+                                    (appIconsFolder==null || selectedFile.nativePath!=appIconsFolder.nativePath)
+                                )
+                                {
+                                    embededFiles += aFile.nativePath+' ';
+                                }
+                            }
+                            currentExportParams.contents = embededFiles ;
+                            buildExportparamsFile();
+                        }
+                    }
+                    
                 }
 
                 function buildExportparamsFile():void
