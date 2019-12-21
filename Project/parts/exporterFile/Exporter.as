@@ -272,6 +272,47 @@
                             function iosManifestSelected(e:PopMenuEvent):void
                             {
                                 currentExportParams.setIos_xml_name(e.buttonData as File);
+                                findNativeFolder();
+                            }
+                        }
+                    }
+                }
+
+                function findNativeFolder():void
+                {
+                    FileManager.searchFor(exportDirectory,'*.ane',nativeFolderFounded);
+                    function nativeFolderFounded(nativeFiles:Vector.<File>):void
+                    {
+                        var nativeFoldersNames:Array =[];
+                        var nativeFolders:Array = [];
+                        for(var i:int = 0 ; i<nativeFiles.length ; i++)
+                        {
+                            if(nativeFoldersNames.indexOf(nativeFiles[i].parent.nativePath)==-1)
+                            {
+                                nativeFolders.push(new PopButtonData(nativeFiles[i].parent.nativePath,2,i,true,false,true,'',nativeFiles[i].parent));
+                                nativeFoldersNames.push(nativeFiles[i].parent.nativePath);
+                            }
+                        }
+
+                        if(nativeFolders.length==0)
+                        {
+                            buildExportparamsFile();
+                        }
+                        else if(nativeFolders.length==1)
+                        {
+                            currentExportParams.native_folder = ((nativeFolders[0] as PopButtonData).dynamicData as File).nativePath ;
+                            buildExportparamsFile();
+                        }
+                        else
+                        {
+                            Hints.selector("Select the Native directory",'',nativeFolders,onNativeFolderSelected);
+                            function onNativeFolderSelected(e:PopMenuEvent):void
+                            {
+                                var selectedDirectory:File = e.buttonData as File ;
+                                if(selectedDirectory!=null)
+                                {
+                                    currentExportParams.native_folder = selectedDirectory.nativePath ;
+                                }
                                 buildExportparamsFile();
                             }
                         }

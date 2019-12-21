@@ -79,8 +79,8 @@ package parts.exporterFile
         public var swfname:String='';//"RefahBank";
         private var _exportname:String=null;//"RefahBank";
         
-        public var contents:String='';//"Data AppIconsForPublish";
         public var native_folder:String='';//"native";
+        public var contents:String='';//"Data AppIconsForPublish";
         public var ip_adress:String ;
         public function ExportParams()
         {
