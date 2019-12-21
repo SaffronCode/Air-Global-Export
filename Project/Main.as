@@ -42,8 +42,7 @@
 
             exporterPartMC = Obj.findThisClass(Exporter,this);
             exporterPartMC.visible = !globalSettingMC.visible ;
-            exporterPartMC.setLibraries(globalSettingMC.getLibraries());
-            exporterPartMC.setAirSDK(globalSettingMC.getSelectedAdobeAir());
+            updateLibrariesAndFiles();
 
             settingBTN = Obj.get("setting_btn",this);
             settingBTN.buttonMode = true;
@@ -51,8 +50,7 @@
                 globalSettingMC.visible = !globalSettingMC.visible ;
                 exporterPartMC.visible = !globalSettingMC.visible ;
                 settingButtonFrame();
-                exporterPartMC.setLibraries(globalSettingMC.getLibraries());
-                exporterPartMC.setAirSDK(globalSettingMC.getSelectedAdobeAir());
+                updateLibrariesAndFiles();
             });
 
             generateExportGenerator();
@@ -132,6 +130,15 @@
         private function generateExportGenerator():void
         {
             
+        }
+
+        private function updateLibrariesAndFiles():void
+        {
+            exporterPartMC.setLibraries(globalSettingMC.getLibraries());
+            exporterPartMC.setAirSDK(globalSettingMC.getSelectedAdobeAir());
+            Alert.show("globalSettingMC.getAndroidp12() :"+globalSettingMC.getAndroidp12());
+            exporterPartMC.setAndroidp12(globalSettingMC.getAndroidp12());
+            exporterPartMC.setiOSp12(globalSettingMC.getiOSp12());
         }
     }
 
