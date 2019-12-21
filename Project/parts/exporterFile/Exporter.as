@@ -221,8 +221,61 @@
 
                 function findSWFandManifest():void
                 {
-                    //FileManager.searchFor(projectList.getCurrentProjectFolder(),'*.xml',)
-                    buildExportparamsFile();
+                    currentExportParams.swfname = mainSWF.name.substring(0,mainSWF.name.lastIndexOf('.'));
+                    
+                    FileManager.searchFor(mainSWF.parent,'*.xml',controlFoundedXMLs);
+
+                    function controlFoundedXMLs(xmlFiles:Vector.<File>)
+                    {
+                        var manifestFiles:Vector.<File> = new Vector.<File>();
+                        var manifestButtons:Array = [] ;
+                        var manifestFordev:Array = [] ;
+                        var manifestFordist:Array = [] ;
+                        manifestButtons.push(new PopButtonData('-',2));
+                        for(var i:int = 0 ; i<xmlFiles.length;i++)
+                        {
+                            var loadesManifest:String = TextFile.load(xmlFiles[i]);
+                            if(loadesManifest.indexOf(mainSWF.name)!=-1 && loadesManifest.indexOf('application')!=-1)
+                            {
+                                manifestFiles.push(xmlFiles[i]);
+                                manifestButtons.push(new PopButtonData(manifestFiles[i].name,2,i,true,false,true,'',manifestFiles[i]));
+                                manifestFordev.push(new PopButtonData(manifestFiles[i].name+(loadesManifest.indexOf("<string>development</string>")!=-1?"(Recomended)":''),2,i,true,false,true,'',manifestFiles[i]));
+                                manifestFordist.push(new PopButtonData(manifestFiles[i].name+(loadesManifest.indexOf("<string>production</string>")!=-1?"(Recomended)":''),2,i,true,false,true,'',manifestFiles[i]));
+                            }
+                        }
+                        if(manifestFiles.length==0)
+                        {
+                            Hints.show("You forgot to add mainfest-app.xml file to the project. use SaffronCode Adobe Air Assistant application to create one");
+                            //end()
+                        }
+                        else if(manifestFiles.length==1)
+                        {
+                            currentExportParams.setAndroid_xml_name(manifestFiles[0]);
+                            currentExportParams.setios_dev_xml_name(manifestFiles[0]);
+                            currentExportParams.setIos_xml_name(manifestFiles[0]);
+
+                            buildExportparamsFile();
+                        }
+                        else
+                        {
+                            Hints.selector("Select Android manifest file",'',manifestButtons,androidManifestSelected);
+                            function androidManifestSelected(e:PopMenuEvent):void
+                            {
+                                currentExportParams.setAndroid_xml_name(e.buttonData as File);
+                                Hints.selector("Select iOS development manifest file",'',manifestFordev,iosDevManifestSelected);
+                            }
+                            function iosDevManifestSelected(e:PopMenuEvent):void
+                            {
+                                currentExportParams.setios_dev_xml_name(e.buttonData as File);
+                                Hints.selector("Select iOS production manifest file",'',manifestFordist,iosManifestSelected);
+                            }
+                            function iosManifestSelected(e:PopMenuEvent):void
+                            {
+                                currentExportParams.setIos_xml_name(e.buttonData as File);
+                                buildExportparamsFile();
+                            }
+                        }
+                    }
                 }
 
                 function buildExportparamsFile():void

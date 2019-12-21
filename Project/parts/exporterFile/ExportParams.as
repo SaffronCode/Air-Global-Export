@@ -38,6 +38,27 @@ package parts.exporterFile
             else
                 return _ios_dev_certificate.nativePath ;
         }
+        public function get android_xml_name():String
+        {
+            if(_android_xml_name==null)
+                return '' ;
+            else
+                return _android_xml_name.name ;
+        }
+        public function get ios_xml_name():String
+        {
+            if(_ios_xml_name==null)
+                return '' ;
+            else
+                return _ios_xml_name.name ;
+        }
+        public function get ios_dev_xml_name():String
+        {
+            if(_ios_dev_xml_name==null)
+                return '' ;
+            else
+                return _ios_dev_xml_name.name ;
+        }
         private var _airpath:File;
         private var _android_certificate:File;
         public var android_cert_pass:String="$";
@@ -45,9 +66,11 @@ package parts.exporterFile
         public var ios_cert_pass:String="";
         private var _ios_dev_certificate:File;
         public var ios_cert_dev_pass:String="";
+        private var _android_xml_name:File=null;//"RefahBank-app-dist";
+        private var _ios_xml_name:File=null;//"RefahBank-app-dist";
+        private var _ios_dev_xml_name:File=null;//"RefahBank-app-dist";
         
         public var exportname:String='';//"RefahBank";
-        public var android_xml_name:String='';//"RefahBank-app-dist";
         public var swfname:String='';//"RefahBank";
         public var contents:String='';//"Data AppIconsForPublish";
         public var native_folder:String='';//"native";
@@ -74,6 +97,29 @@ package parts.exporterFile
                     }
                 }
             }
+        }
+
+
+        public function setAndroid_xml_name(target:File):void
+        {
+            if(target==null)
+                _android_xml_name = null;
+            else
+               _android_xml_name = new File(target.nativePath) ;
+        }
+        public function setIos_xml_name(target:File):void
+        {
+            if(target==null)
+                _ios_xml_name = null ;
+            else
+                _ios_xml_name = new File(target.nativePath);
+        }
+        public function setios_dev_xml_name(target:File):void
+        {
+            if(target==null)
+                _ios_dev_xml_name = null ;
+            else
+                _ios_dev_xml_name = new File(target.nativePath);
         }
 
         
