@@ -42,21 +42,21 @@ package parts.exporterFile
         {
             if(_android_xml_name==null)
                 return '' ;
-            return _android_xml_name.name ;
+            return fileName(_android_xml_name.name) ;
         }
         public function get ios_xml_name():String
         {
             if(_ios_xml_name==null)
                 return '' ;
             else
-                return _ios_xml_name.name ;
+                return fileName(_ios_xml_name.name) ;
         }
         public function get ios_dev_xml_name():String
         {
             if(_ios_dev_xml_name==null)
                 return '' ;
             else
-                return _ios_dev_xml_name.name ;
+                return fileName(_ios_dev_xml_name.name) ;
         }
         public function get exportname():String
         {
