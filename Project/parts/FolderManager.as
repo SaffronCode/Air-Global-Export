@@ -1,4 +1,4 @@
-package parts
+﻿package parts
 //parts.FolderManager
 {
     import flash.display.MovieClip;
@@ -36,6 +36,10 @@ package parts
                         id_selectedFile:String="id_selectedFile" ;
 
         private var isMultifile:Boolean = false ;
+
+        private var title:String ;
+
+        private var filePattern:String = null ;
 
         public function FolderManager()
         {
@@ -106,11 +110,13 @@ package parts
             GlobalStorage.save(id_folderManager+this.name,directories);
         }
 
-        public function setUp(fileController:Function,multiFile:Boolean=false):void
+        public function setUp(fileController:Function,fileBrowserTitle:String,multiFile:Boolean=false,extensionPatternToChooseFile:String=null):void
         {
             fileControllerFunction = fileController ;
             isMultifile = multiFile ;
             titleMC.visible = !multiFile ;
+            this.filePattern = extensionPatternToChooseFile ;
+            title = fileBrowserTitle ;
 
             list.y = listY0 - int(multiFile)*titleMC.height ;
             
@@ -128,7 +134,14 @@ package parts
 
         private function openFolderBrowser(e:MouseEvent):void
         {
-            FileManager.browseForDirectory(addThisDirectory,"Select SaffronCode directory");
+            if(filePattern!=null)
+            {
+                FileManager.browse(addThisDirectory,[filePattern],title)
+            }
+            else
+            {
+                FileManager.browseForDirectory(addThisDirectory,title);
+            }
         }
 
         private function addThisDirectory(directory:File):void

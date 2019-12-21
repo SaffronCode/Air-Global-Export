@@ -12,16 +12,39 @@ package parts
         private var airCompilersList:FolderManager ;
 
         private var externalLibrariesList:FolderManager ;
+        private var androidP12:FolderManager ;
+        private var iOSP12:FolderManager ;
 
         public function GlobalSetting()
         {
             super();
 
             airCompilersList = Obj.get("compiler_list_mc",this);
-            airCompilersList.setUp(isAirCompilderFolder);
+            airCompilersList.setUp(isAirCompilderFolder,"Select Air SDK directory");
+            
+            androidP12 = Obj.get("andridp12_mc",this);
+            androidP12.setUp(isp12,'Select Android certificate.p12',false,"*.p12");
+            
+            iOSP12 = Obj.get("iosp12_mc",this);
+            iOSP12.setUp(isp12,'Select iOS certificate.p12',false,"*.p12");
 
             externalLibrariesList = Obj.get("external_libraries_mc",this);
-            externalLibrariesList.setUp(libraryFolderControll,true);
+            externalLibrariesList.setUp(libraryFolderControll,"Select external libraries",true);
+        }
+
+        public function getAndroidp12():File
+        {
+            return androidP12.getSelectedFile();
+        }
+
+        public function getiOSp12():File
+        {
+            return iOSP12.getSelectedFile();
+        }
+
+        private function isp12(aFile:File):File
+        {
+            return aFile!=null && aFile.exists && aFile.extension.toLowerCase()=='p12'?aFile:null ;
         }
 
 

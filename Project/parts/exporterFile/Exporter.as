@@ -29,6 +29,9 @@
 
         private var currentAirTarget:File ;
 
+        private var currentAndroidp12:File,
+                    currentiosp12:File;
+
         public function Exporter()
         {
             super();
@@ -130,9 +133,98 @@
             {
                 currentExportParams = new ExportParams();
                 currentExportParams.setAirpath(currentAirTarget) ;
-                //Update, create load params TODO
-                var paramFile:File = exportDirectory.resolvePath('exportparams');
-                TextFile.save(paramFile,currentExportParams.toString());
+                findAndroidp12();
+
+                function findAndroidp12():void
+                {
+                    FileManager.searchFor(projectList.getCurrentProjectFolder(),'*.p12',p12founded);
+                    function p12founded(p12List:Vector.<File>):void
+                    {
+                        Alert.show("Cert files list is "+p12List.length+" >>> "+currentAndroidp12);
+                        var ap12List:Array = [] ;
+                        if(currentAndroidp12!=null)
+                        {
+                            ap12List.push(new PopButtonData("Default p12",1,null,true,false,true,'',currentAndroidp12));
+                        }
+                        for(var i:int = 0 ; i<p12List.length;i++)
+                        {
+                            ap12List.push(new PopButtonData(p12List[i].name,1,null,true,false,true,'',p12List[i]));
+                        }
+                        if(ap12List.length>1)
+                        {
+                            Hints.selector("Select Android certificate.p12",'',ap12List,onAndroidp12Selected);
+                        }
+                        else if(ap12List.length == 1)
+                        {
+                            currentExportParams.setAndroidP12((ap12List[0] as PopButtonData).dynamicData as File);
+                            findiOSp12();
+                        }
+                        else
+                        {
+                            findiOSp12();
+                        }
+
+                        function onAndroidp12Selected(e:PopMenuEvent):void
+                        {
+                            var selectedFile:File = e.buttonData as File ;
+                            if(selectedFile!=null)
+                            {
+                                currentExportParams.setAndroidP12(selectedFile);
+                            }
+                            findiOSp12();
+                        }
+                    }
+                }
+
+                
+
+
+                function findiOSp12():void
+                {
+                    FileManager.searchFor(projectList.getCurrentProjectFolder(),'*.p12',p12founded);
+                    function p12founded(p12List:Vector.<File>):void
+                    {
+                        var ap12List:Array = [] ;
+                        if(currentiosp12!=null)
+                        {
+                            ap12List.push(new PopButtonData("Default p12",1,null,true,false,true,'',currentiosp12));
+                        }
+                        for(var i:int = 0 ; i<p12List.length;i++)
+                        {
+                            ap12List.push(new PopButtonData(p12List[i].name,1,null,true,false,true,'',p12List[i]));
+                        }
+                        if(ap12List.length>1)
+                        {
+                            Hints.selector("Select iOS certificate.p12",'',ap12List,onAndroidp12Selected);
+                        }
+                        else if(ap12List.length==1)
+                        {
+                            currentExportParams.setiOSP12((ap12List[0] as PopButtonData).dynamicData as File);
+                            buildExportparamsFile();
+                        }
+                        else
+                        {
+                            buildExportparamsFile();
+                        }
+
+                        function onAndroidp12Selected(e:PopMenuEvent):void
+                        {
+                            var selectedFile:File = e.buttonData as File ;
+                            if(selectedFile!=null)
+                            {
+                                currentExportParams.setiOSP12(selectedFile);
+                            }
+                            buildExportparamsFile();
+                        }
+                    }
+                }
+
+                function buildExportparamsFile():void
+                {
+                    //Update, create load params TODO
+                    var paramFile:File = exportDirectory.resolvePath('exportparams');
+                    TextFile.save(paramFile,currentExportParams.toString());
+                }
             }
 
         private function disableExporterButton():void
@@ -147,6 +239,16 @@
             createExporterFilesMC.alpha = 1;
             createExporterFilesMC.mouseEnabled = true ;
             createExporterFilesMC.buttonMode = true ;
+        }
+
+        public function setAndroidp12(androidp12:File):void
+        {
+            currentAndroidp12 = androidp12 ;
+        }
+
+        public function setiOSp12(iosp12:File):void
+        {
+            currentiosp12 = iosp12 ;
         }
 
         public function setAirSDK(airTarget:File):void

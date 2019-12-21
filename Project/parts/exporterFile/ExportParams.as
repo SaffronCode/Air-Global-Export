@@ -16,9 +16,24 @@ package parts.exporterFile
             else
                 return _airpath.nativePath ;
         }
+        public function get android_certificate():String
+        {
+            if(_android_certificate==null)
+                return '' ;
+            else
+                return _android_certificate.nativePath ;
+        }
+        public function get ios_certificate():String
+        {
+            if(_ios_certificate==null)
+                return '' ;
+            else
+                return _ios_certificate.nativePath ;
+        }
         private var _airpath:File;
         public var android_cert_pass:String="NewPass123$";
-        public var android_certificate:String="D:\\Sepehr\\MTeamCertifications\\MTeam Certification File.p12";
+        private var _android_certificate:File;
+        private var _ios_certificate:File;
         public var exportname:String="RefahBank";
         public var android_xml_name:String="RefahBank-app-dist";
         public var swfname:String="RefahBank";
@@ -56,6 +71,22 @@ package parts.exporterFile
                 _airpath = new File(target.nativePath);
             else
                 _airpath = null ;
+        }
+        
+        public function setAndroidP12(target:File):void
+        {
+            if(target!=null)
+                _android_certificate = new File(target.nativePath);
+            else
+                _android_certificate = null ;
+        }
+        
+        public function setiOSP12(target:File):void
+        {
+            if(target!=null)
+                _ios_certificate = new File(target.nativePath);
+            else
+                _ios_certificate = null ;
         }
         
         public function toString():String
