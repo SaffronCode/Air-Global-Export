@@ -42,8 +42,7 @@ package parts.exporterFile
         {
             if(_android_xml_name==null)
                 return '' ;
-            else
-                return _android_xml_name.name ;
+            return _android_xml_name.name ;
         }
         public function get ios_xml_name():String
         {
@@ -59,6 +58,14 @@ package parts.exporterFile
             else
                 return _ios_dev_xml_name.name ;
         }
+        public function get exportname():String
+        {
+            if(_exportname!=null)
+            {
+                return _exportname ;
+            }
+            return swfname ;
+        }
         private var _airpath:File;
         private var _android_certificate:File;
         public var android_cert_pass:String="$";
@@ -69,9 +76,9 @@ package parts.exporterFile
         private var _android_xml_name:File=null;//"RefahBank-app-dist";
         private var _ios_xml_name:File=null;//"RefahBank-app-dist";
         private var _ios_dev_xml_name:File=null;//"RefahBank-app-dist";
-        
-        public var exportname:String='';//"RefahBank";
         public var swfname:String='';//"RefahBank";
+        private var _exportname:String=null;//"RefahBank";
+        
         public var contents:String='';//"Data AppIconsForPublish";
         public var native_folder:String='';//"native";
         public var ip_adress:String ;
@@ -105,21 +112,30 @@ package parts.exporterFile
             if(target==null)
                 _android_xml_name = null;
             else
+            {
+                _exportname = loadFileNamefromXML(target);
                _android_xml_name = new File(target.nativePath) ;
+            }
         }
         public function setIos_xml_name(target:File):void
         {
             if(target==null)
                 _ios_xml_name = null ;
             else
+             {
+                _exportname = loadFileNamefromXML(target);
                 _ios_xml_name = new File(target.nativePath);
+             }
         }
         public function setios_dev_xml_name(target:File):void
         {
             if(target==null)
                 _ios_dev_xml_name = null ;
             else
+            {
+                _exportname = loadFileNamefromXML(target);
                 _ios_dev_xml_name = new File(target.nativePath);
+            }
         }
 
         
@@ -162,6 +178,22 @@ package parts.exporterFile
             }
             else
                 _ios_certificate = null ;
+        }
+
+        private function loadFileNamefromXML(XMLFile:File):String
+        {
+            var theName:String = null ;
+            var loadedXMLFile:String = TextFile.load(XMLFile);
+            var foundedFileNames:Array = loadedXMLFile.match(/<filename>.*<\/filename>/i);
+            if(foundedFileNames!=null && foundedFileNames.length>0)
+            {
+                theName = String(foundedFileNames[0]).replace(/<[^>]+>/g,'');
+                if(theName=='')
+                {
+                    theName = null ;
+                }
+            }
+            return theName ;
         }
         
         public function setiOSDevP12(target:File):void
