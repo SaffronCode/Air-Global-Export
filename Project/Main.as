@@ -136,7 +136,6 @@
         {
             exporterPartMC.setLibraries(globalSettingMC.getLibraries());
             exporterPartMC.setAirSDK(globalSettingMC.getSelectedAdobeAir());
-            Alert.show("globalSettingMC.getAndroidp12() :"+globalSettingMC.getAndroidp12());
             exporterPartMC.setAndroidp12(globalSettingMC.getAndroidp12());
             exporterPartMC.setiOSp12(globalSettingMC.getiOSp12());
         }

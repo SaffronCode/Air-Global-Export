@@ -3,7 +3,6 @@ package parts
 {
     import flash.display.MovieClip;
     import flash.filesystem.File;
-    import contents.alert.Alert;
     import dataManager.GlobalStorage;
     import contents.TextFile;
 
