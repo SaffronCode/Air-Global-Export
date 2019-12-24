@@ -142,11 +142,11 @@
                         var ap12List:Array = [] ;
                         if(currentAndroidp12!=null)
                         {
-                            ap12List.push(new PopButtonData("Default p12",1,null,true,false,true,'',currentAndroidp12));
+                            ap12List.push(new PopButtonData("Default p12",2,null,true,false,true,'',currentAndroidp12));
                         }
                         for(var i:int = 0 ; i<p12List.length;i++)
                         {
-                            ap12List.push(new PopButtonData(p12List[i].name,1,null,true,false,true,'',p12List[i]));
+                            ap12List.push(new PopButtonData(p12List[i].name,2,null,true,false,true,'',p12List[i]));
                         }
                         if(ap12List.length>1)
                         {
@@ -186,11 +186,11 @@
                         var ap12List:Array = [] ;
                         if(currentiosp12!=null)
                         {
-                            ap12List.push(new PopButtonData("Default p12",1,null,true,false,true,'',currentiosp12));
+                            ap12List.push(new PopButtonData("Default p12",2,null,true,false,true,'',currentiosp12));
                         }
                         for(var i:int = 0 ; i<p12List.length;i++)
                         {
-                            ap12List.push(new PopButtonData(p12List[i].name,1,null,true,false,true,'',p12List[i]));
+                            ap12List.push(new PopButtonData(p12List[i].name,2,null,true,false,true,'',p12List[i]));
                         }
                         if(ap12List.length>1)
                         {
@@ -225,7 +225,7 @@
                     
                     FileManager.searchFor(mainSWF.parent,'*.xml',controlFoundedXMLs);
 
-                    function controlFoundedXMLs(xmlFiles:Vector.<File>)
+                    function controlFoundedXMLs(xmlFiles:Vector.<File>):void
                     {
                         var manifestFiles:Vector.<File> = new Vector.<File>();
                         var manifestButtons:Array = [] ;
@@ -238,9 +238,9 @@
                             if(loadesManifest.indexOf(mainSWF.name)!=-1 && loadesManifest.indexOf('application')!=-1)
                             {
                                 manifestFiles.push(xmlFiles[i]);
-                                manifestButtons.push(new PopButtonData(manifestFiles[i].name,2,i,true,false,true,'',manifestFiles[i]));
-                                manifestFordev.push(new PopButtonData(manifestFiles[i].name+(loadesManifest.indexOf("<string>development</string>")!=-1?"(Recomended)":''),2,i,true,false,true,'',manifestFiles[i]));
-                                manifestFordist.push(new PopButtonData(manifestFiles[i].name+(loadesManifest.indexOf("<string>production</string>")!=-1?"(Recomended)":''),2,i,true,false,true,'',manifestFiles[i]));
+                                manifestButtons.push(new PopButtonData(xmlFiles[i].name,2,i,true,false,true,'',xmlFiles[i]));
+                                manifestFordev.push(new PopButtonData(xmlFiles[i].name+(loadesManifest.indexOf("<string>development</string>")!=-1?"(Recomended)":''),2,i,true,false,true,'',xmlFiles[i]));
+                                manifestFordist.push(new PopButtonData(xmlFiles[i].name+(loadesManifest.indexOf("<string>production</string>")!=-1?"(Recomended)":''),2,i,true,false,true,'',xmlFiles[i]));
                             }
                         }
                         if(manifestFiles.length==0)
