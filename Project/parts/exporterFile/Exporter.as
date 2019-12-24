@@ -283,6 +283,7 @@
                     FileManager.searchFor(exportDirectory,'*.ane',nativeFolderFounded);
                     function nativeFolderFounded(nativeFiles:Vector.<File>):void
                     {
+                        currentExportParams.native_folder = '' ;
                         var nativeFoldersNames:Array =[];
                         var nativeFolders:Array = [];
                         for(var i:int = 0 ; i<nativeFiles.length ; i++)
@@ -319,8 +320,8 @@
 
                         function setNativeAdress(nativeFile:File):void
                         {
-                            var relativeTarget:String = FileManager.getRelatedTarget(exportDirectory,nativeFile)
-                            currentExportParams.native_folder = relativeTarget ;
+                            var relativeTarget:String = FileManager.getRelatedTarget(exportDirectory,nativeFile);
+                            currentExportParams.native_folder = "-extdir "+relativeTarget ;
                         }
                     }
                 }
