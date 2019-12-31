@@ -12,6 +12,7 @@
     import contents.TextFile;
     import com.mteamapp.JSONParser;
     import flash.events.MouseEvent;
+    import parts.LaunchJSON.LaunchFileCreator;
 
     public class Exporter extends MovieClip
     {
@@ -34,6 +35,8 @@
         private var currentAndroidp12:File,
                     currentiosp12:File;
 
+        private var createLaunchFileForDebugger:MovieClip ;
+
         public function Exporter()
         {
             super();
@@ -48,6 +51,15 @@
             createExporterFilesMC = Obj.get("create_exporter_files_mc",this);
             createExporterFilesMC.addEventListener(MouseEvent.CLICK,saveBatFiles);
             disableExporterButton();
+
+            createLaunchFileForDebugger = Obj.get("debugger_mc",this);
+            createLaunchFileForDebugger.buttonMode = true ;
+            createLaunchFileForDebugger.addEventListener(MouseEvent.CLICK,saveLaunchFile);
+        }
+
+        private function saveLaunchFile(e:MouseEvent):void
+        {
+            LaunchFileCreator.createLaunchJSON(projectList.getCurrentProjectFolder());
         }
 
         private function saveBatFiles(e:MouseEvent):void
