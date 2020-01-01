@@ -588,6 +588,12 @@
                         Hints.hide();
                         setTheMainASFile(asFiles[0]);
                     }
+                    else if(asFiles.length==0)
+                    {
+                        var asFile:File = mainFlaFile.parent.resolvePath("Main.as");
+                        TextFile.save(asFile,"package\n{\n\timport flash.display.MovieClip;\n\tpublic class Main extends MovieClip\n\t{\n\t\tpublic function Main()\n\t\t{\n\t\t\tsuper();\n\t\t}\n\t}\n}")
+                        setTheMainASFile(asFile);
+                    }
                 }
 
                 function setTheMainASFile(asFile:File):void
