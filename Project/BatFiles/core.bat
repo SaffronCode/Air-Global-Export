@@ -11,4 +11,5 @@ set t=%time:~0,5%
 set t=%t::=%
 set t=%t: =0%
 set timestamp=%d%_%t%
+set t=%t: =0%
 echo %timestamp%;
