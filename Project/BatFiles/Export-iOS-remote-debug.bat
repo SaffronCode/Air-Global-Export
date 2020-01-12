@@ -1,0 +1,4 @@
+call core.bat
+TITLE %~n0
+
+"%airpath%\bin\adt.bat" -package -target ipa-debug -connect 10.253.252.60 -keystore "%ios_dev_certificate%" -storetype pkcs12 -storepass "%ios_cert_pass%"  -provisioning-profile  "%ios_dev_provision%"  "%exportname%-dist%timestamp%.ipa" "%ios_xml_name%.xml"  "%swfname%.swf" Data AppIconsForPublish Default~iphone.png Default@2x~iphone.png Default-568h@2x~iphone.png Default-375w-667h@2x~iphone.png Default-414w-736h@3x~iphone.png Default-Landscape-414w-736h@3x~iphone.png Default-812h@3x~iphone.png Default-Landscape-812h@3x~iphone.png Default-Portrait~ipad.png Default-Landscape~ipad.png Default-Portrait@2x~ipad.png Default-Landscape@2x~ipad.png Default-Portrait-1112h@2x.png Default-Landscape-1112h@2x.png Default-Portrait@2x.png Default-Landscape@2x.png  Assets.car %native_folder% > %logdir%/"%~n0".log
