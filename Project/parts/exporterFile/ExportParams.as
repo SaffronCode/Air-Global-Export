@@ -3,7 +3,6 @@ package parts.exporterFile
     import flash.net.NetworkInfo;
     import flash.net.NetworkInterface;
     import flash.net.InterfaceAddress;
-    import contents.alert.Alert;
     import flash.filesystem.File;
     import contents.TextFile;
 
@@ -68,7 +67,7 @@ package parts.exporterFile
         }
         private var _airpath:File;
         private var _android_certificate:File;
-        public var android_cert_pass:String="$";
+        public var android_cert_pass:String="";
         private var _ios_certificate:File;
         public var ios_cert_pass:String="";
         private var _ios_dev_certificate:File;
@@ -108,6 +107,43 @@ package parts.exporterFile
                     }
                 }
             }
+        }
+
+        public function load(file:File):void
+        {
+            if(!file.exists)
+                return ;
+            var loadedParams:String = TextFile.load(file);
+            if(loadedParams=='')
+                return;
+
+            /** airpath=D:\air\AIR33
+                android_cert_pass=
+                android_certificate=D:\Sepehr\ZekrShomarForPublish\Project\src\DigitalPT.p12
+                android_xml_name=ZekrExport-app
+                contents=AppIconsForPublish Data 
+                exportname=Fazkorooni
+                ios_cert_dev_pass=
+                ios_cert_pass=
+                ios_certificate=D:\Sepehr\ZekrShomarForPublish\Project\src\dist_ios.p12
+                ios_dev_certificate=D:\Sepehr\ZekrShomarForPublish\Project\src\dev_ios.p12
+                ios_dev_provision=D:\Sepehr\ZekrShomarForPublish\Project\src\Fazkorooni.mobileprovision
+                ios_dev_xml_name=ZekrExport-app
+                ios_dist_provision=D:\Sepehr\ZekrShomarForPublish\Project\src\FazkorooniDist.mobileprovision
+                ios_xml_name=ZekrExport-app-dist
+                ip_adress=192.168.1.100
+                native_folder=-extdir .\native
+                swfname=Zekr */
+                var foundedItems:Array = loadedParams.match(/android_cert_pass\=[^\n]+/);
+                if(foundedItems!=null)
+                    android_cert_pass = String(foundedItems[0]).split('android_cert_pass=').join('');
+                foundedItems = loadedParams.match(/ios_cert_dev_pass\=[^\n]+/);
+                if(foundedItems!=null)
+                    ios_cert_dev_pass = String(foundedItems[0]).split('ios_cert_dev_pass=').join('');
+                foundedItems = loadedParams.match(/ios_cert_pass\=[^\n]+/);
+                if(foundedItems!=null)
+                    ios_cert_pass = String(foundedItems[0]).split('ios_cert_pass=').join('');
+                
         }
 
 
@@ -153,7 +189,6 @@ package parts.exporterFile
         
         public function setAndroidP12(target:File):void
         {
-            android_cert_pass = '';
             if(target!=null)
             {
                 _android_certificate = new File(target.nativePath);

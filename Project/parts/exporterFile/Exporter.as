@@ -6,13 +6,16 @@
     import popForm.Hints;
     import flash.utils.setTimeout;
     import parts.jsonConfig.AsConfig;
-    import contents.alert.Alert;
     import popForm.PopButtonData;
     import popForm.PopMenuEvent;
     import contents.TextFile;
     import com.mteamapp.JSONParser;
     import flash.events.MouseEvent;
     import parts.LaunchJSON.LaunchFileCreator;
+    import popForm.PopMenuContent;
+    import popForm.PopField;
+    import popForm.PopFieldDate;
+    import popForm.PopMenuFields;
 
     public class Exporter extends MovieClip
     {
@@ -143,6 +146,7 @@
             private function updateExportParams():void
             {
                 currentExportParams = new ExportParams();
+                currentExportParams.load(exportDirectory.resolvePath('exportparams'));
                 currentExportParams.setAirpath(currentAirTarget) ;
                 findAndroidp12();
 
@@ -311,7 +315,6 @@
 
                             function selectDevPorv():void
                             {
-                                Alert.show("devProvisionButtons : "+devProvisionButtons.length);
                                 if(devProvisionButtons.length==0)
                                 {
                                     findSWFandManifest();
@@ -497,8 +500,37 @@
                 function buildExportparamsFile():void
                 {
                     //Update, create load params TODO
-                    var paramFile:File = exportDirectory.resolvePath('exportparams');
-                    TextFile.save(paramFile,currentExportParams.toString());
+                    var popFields:PopMenuFields = new PopMenuFields();
+                    var ios_dist_field:String = 'iOS distribution p12 password:'
+                    if(currentExportParams.ios_certificate!=null)
+                        popFields.addField(ios_dist_field,currentExportParams.ios_cert_pass,null,true);
+                    var ios_dev_field:String = 'iOS development p12 password:'
+                    if(currentExportParams.ios_dev_certificate!=null)
+                        popFields.addField(ios_dev_field,currentExportParams.ios_cert_dev_pass,null,true);
+                    var android_field:String = 'Android p12 password:'
+                    if(currentExportParams.android_certificate!=null)
+                        popFields.addField(android_field,currentExportParams.android_cert_pass,null,true);
+                    
+
+                    var popContent:PopMenuContent = new PopMenuContent('',popFields,['Save']);
+                    if(popFields.length()>0)
+                        PopMenu1.popUp("Enter p12 files passwords.",null,popContent,0,onDone);
+                    else
+                        createFile();
+
+                    function onDone(e:PopMenuEvent):void
+                    {
+                        currentExportParams.android_cert_pass = e.field[android_field];
+                        currentExportParams.ios_cert_dev_pass = e.field[ios_dev_field];
+                        currentExportParams.ios_cert_pass = e.field[ios_dist_field];
+                        createFile();
+                    }
+
+                    function createFile():void
+                    {
+                        var paramFile:File = exportDirectory.resolvePath('exportparams');
+                        TextFile.save(paramFile,currentExportParams.toString());
+                    }
                 }
             }
 
