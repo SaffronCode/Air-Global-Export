@@ -187,6 +187,69 @@
                             }
                             findiOSp12();
                         }
+
+                        function findiOSp12():void
+                        {
+                            ap12List = [] ;
+                            if(currentiosp12!=null)
+                            {
+                                ap12List.push(new PopButtonData("Default p12",2,null,true,false,true,'',currentiosp12));
+                            }
+                            for(var i:int = 0 ; i<p12List.length;i++)
+                            {
+                                ap12List.push(new PopButtonData(p12List[i].name,2,null,true,false,true,'',p12List[i]));
+                            }
+                            if(ap12List.length>1)
+                            {
+                                Hints.selector("Select iOS Development certificate.p12",'',ap12List,oniOSp12Selected);
+                            }
+                            else if(ap12List.length==1)
+                            {
+                                currentExportParams.setiOSDevP12((ap12List[0] as PopButtonData).dynamicData as File);
+                                findDistributionP12();
+                            }
+                            else
+                            {
+                                findDistributionP12();
+                            }
+
+                            function oniOSp12Selected(e:PopMenuEvent):void
+                            {
+                                var selectedFile:File = e.buttonData as File ;
+                                if(selectedFile!=null)
+                                {
+                                    currentExportParams.setiOSDevP12(selectedFile);
+                                }
+                                findDistributionP12();
+                            }
+
+                            function findDistributionP12():void
+                            {
+                                if(ap12List.length>1)
+                                {
+                                    Hints.selector("Select iOS Distribution certificate.p12",'',ap12List,oniOSDistp12Selected);
+                                }
+                                else if(ap12List.length==1)
+                                {
+                                    currentExportParams.setiOSP12((ap12List[0] as PopButtonData).dynamicData as File);
+                                    findMobileProvisions();
+                                }
+                                else
+                                {
+                                    findMobileProvisions();
+                                }
+                            }
+
+                            function oniOSDistp12Selected(e:PopMenuEvent):void
+                            {
+                                var selectedFile:File = e.buttonData as File ;
+                                if(selectedFile!=null)
+                                {
+                                    currentExportParams.setiOSP12(selectedFile);
+                                }
+                                findMobileProvisions();
+                            } 
+                        }
                     }
                 }
 
@@ -194,72 +257,7 @@
                 
 
 
-                function findiOSp12():void
-                {
-                    FileManager.searchFor(projectList.getCurrentProjectFolder(),'*.p12',p12founded);
-                    function p12founded(p12List:Vector.<File>):void
-                    {
-                        var ap12List:Array = [] ;
-                        if(currentiosp12!=null)
-                        {
-                            ap12List.push(new PopButtonData("Default p12",2,null,true,false,true,'',currentiosp12));
-                        }
-                        for(var i:int = 0 ; i<p12List.length;i++)
-                        {
-                            ap12List.push(new PopButtonData(p12List[i].name,2,null,true,false,true,'',p12List[i]));
-                        }
-                        if(ap12List.length>1)
-                        {
-                            Hints.selector("Select iOS Development certificate.p12",'',ap12List,oniOSp12Selected);
-                        }
-                        else if(ap12List.length==1)
-                        {
-                            currentExportParams.setiOSDevP12((ap12List[0] as PopButtonData).dynamicData as File);
-                            findDistributionP12();
-                        }
-                        else
-                        {
-                            findDistributionP12();
-                        }
-
-                        function oniOSp12Selected(e:PopMenuEvent):void
-                        {
-                            var selectedFile:File = e.buttonData as File ;
-                            if(selectedFile!=null)
-                            {
-                                currentExportParams.setiOSDevP12(selectedFile);
-                            }
-                            findDistributionP12();
-                        }
-
-                        function findDistributionP12():void
-                        {
-                            if(ap12List.length>1)
-                            {
-                                Hints.selector("Select iOS Distribution certificate.p12",'',ap12List,oniOSDistp12Selected);
-                            }
-                            else if(ap12List.length==1)
-                            {
-                                currentExportParams.setiOSP12((ap12List[0] as PopButtonData).dynamicData as File);
-                                findMobileProvisions();
-                            }
-                            else
-                            {
-                                findMobileProvisions();
-                            }
-                        }
-
-                        function oniOSDistp12Selected(e:PopMenuEvent):void
-                        {
-                            var selectedFile:File = e.buttonData as File ;
-                            if(selectedFile!=null)
-                            {
-                                currentExportParams.setiOSP12(selectedFile);
-                            }
-                            findMobileProvisions();
-                        }
-                    }
-                }
+                
 
                 function findMobileProvisions():void
                 {

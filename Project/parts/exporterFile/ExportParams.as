@@ -211,7 +211,6 @@ package parts.exporterFile
          */
         public function setiOSP12(target:File):void
         {
-            ios_cert_pass = '';
             if(target!=null)
             {
                 _ios_certificate = new File(target.nativePath);
@@ -241,7 +240,6 @@ package parts.exporterFile
         
         public function setiOSDevP12(target:File):void
         {
-            ios_cert_dev_pass = '';
             if(target!=null)
             {
                 _ios_dev_certificate = new File(target.nativePath);
