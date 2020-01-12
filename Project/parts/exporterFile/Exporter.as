@@ -206,26 +206,131 @@
                         }
                         if(ap12List.length>1)
                         {
-                            Hints.selector("Select iOS certificate.p12",'',ap12List,onAndroidp12Selected);
+                            Hints.selector("Select iOS Development certificate.p12",'',ap12List,oniOSp12Selected);
                         }
                         else if(ap12List.length==1)
                         {
-                            currentExportParams.setiOSP12((ap12List[0] as PopButtonData).dynamicData as File);
-                            findSWFandManifest();
+                            currentExportParams.setiOSDevP12((ap12List[0] as PopButtonData).dynamicData as File);
+                            findDistributionP12();
                         }
                         else
                         {
-                            findSWFandManifest();
+                            findDistributionP12();
                         }
 
-                        function onAndroidp12Selected(e:PopMenuEvent):void
+                        function oniOSp12Selected(e:PopMenuEvent):void
+                        {
+                            var selectedFile:File = e.buttonData as File ;
+                            if(selectedFile!=null)
+                            {
+                                currentExportParams.setiOSDevP12(selectedFile);
+                            }
+                            findDistributionP12();
+                        }
+
+                        function findDistributionP12():void
+                        {
+                            if(ap12List.length>1)
+                            {
+                                Hints.selector("Select iOS Distribution certificate.p12",'',ap12List,oniOSDistp12Selected);
+                            }
+                            else if(ap12List.length==1)
+                            {
+                                currentExportParams.setiOSP12((ap12List[0] as PopButtonData).dynamicData as File);
+                                findMobileProvisions();
+                            }
+                            else
+                            {
+                                findMobileProvisions();
+                            }
+                        }
+
+                        function oniOSDistp12Selected(e:PopMenuEvent):void
                         {
                             var selectedFile:File = e.buttonData as File ;
                             if(selectedFile!=null)
                             {
                                 currentExportParams.setiOSP12(selectedFile);
                             }
+                            findMobileProvisions();
+                        }
+                    }
+                }
+
+                function findMobileProvisions():void
+                {
+                    FileManager.searchFor(projectList.getCurrentProjectFolder(),'*.mobileprovision',provisionsFounded);
+
+                    function provisionsFounded(provfiles:Vector.<File>):void
+                    {
+                        if(provfiles.length==0)
+                        {
+                            trace("No provision file founded");
                             findSWFandManifest();
+                        }
+                        else
+                        {
+                            var distProvisionButtons:Array = [] ;
+                            var devProvisionButtons:Array = [] ;
+                            for(var i:int = 0 ; i<provfiles.length ; i++)
+                            {
+                                var loadedProvision:String = TextFile.load(provfiles[i],50);
+                                if(loadedProvision.indexOf('<key>beta-reports-active</key>')!=-1)
+                                {
+                                    distProvisionButtons.push(new PopButtonData(provfiles[i].name,2,null,true,false,true,'',provfiles[i]));
+                                }
+                                else
+                                {
+                                    devProvisionButtons.push(new PopButtonData(provfiles[i].name,2,null,true,false,true,'',provfiles[i]));
+                                }
+                            }
+                            
+                            selectDistProv();
+
+                            function selectDistProv():void
+                            {
+                                if(distProvisionButtons.length==0)
+                                {
+                                    selectDevPorv();
+                                }
+                                else if(distProvisionButtons.length==1)
+                                {
+                                    currentExportParams.ios_dist_provision = (distProvisionButtons[0].dynamicData as File).nativePath ;
+                                    selectDevPorv();
+                                }
+                                else
+                                {
+                                    Hints.selector("Select the Distribution provision file",'',distProvisionButtons,distSelected);
+                                    function distSelected(e:PopMenuEvent):void
+                                    {
+                                        currentExportParams.ios_dist_provision = (e.buttonData as File).nativePath ;
+                                        selectDevPorv();
+                                    }
+                                }
+                            }
+
+                            function selectDevPorv():void
+                            {
+                                Alert.show("devProvisionButtons : "+devProvisionButtons.length);
+                                if(devProvisionButtons.length==0)
+                                {
+                                    findSWFandManifest();
+                                }
+                                else if(devProvisionButtons.length==1)
+                                {
+                                    currentExportParams.ios_dev_provision = (devProvisionButtons[0].dynamicData as File).nativePath ;
+                                    findSWFandManifest();
+                                }
+                                else
+                                {
+                                    Hints.selector("Select the Development provision file",'',devProvisionButtons,devSelected);
+                                    function devSelected(e:PopMenuEvent):void
+                                    {
+                                        currentExportParams.ios_dev_provision = (e.buttonData as File).nativePath ;
+                                        findSWFandManifest();
+                                    }
+                                }
+                            }
                         }
                     }
                 }

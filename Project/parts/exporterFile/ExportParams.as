@@ -80,6 +80,10 @@ package parts.exporterFile
         private var _exportname:String=null;//"RefahBank";
         public var native_folder:String='';//"native";
         public var ip_adress:String ;
+
+        public var ios_dist_provision:String = '' ;
+        public var ios_dev_provision:String = '';
+
         
         public var contents:String='';//"Data AppIconsForPublish";
         public function ExportParams()
@@ -166,6 +170,10 @@ package parts.exporterFile
             return nameAndExt.substring(0,nameAndExt.lastIndexOf('.'));
         }
         
+        /**
+         * Development
+         * @param target 
+         */
         public function setiOSP12(target:File):void
         {
             ios_cert_pass = '';
