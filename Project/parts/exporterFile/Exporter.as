@@ -824,6 +824,20 @@
                     var jsonString:String = JSON.stringify(jsonModel,null,'\t');
                     jsonString = jsonString.replace("source_path","source-path").replace("external_library_path","external-library-path");
                     TextFile.save(jsonConfig,jsonString);
+
+                    //create setting if not exists
+
+                    var settingFile:File = projectFolder.resolvePath(".vscode");
+                    if(!settingFile.exists)
+                    {
+                        settingFile.createDirectory();
+                    }
+                    settingFile = settingFile.resolvePath("settings.json");
+                    if(!settingFile.exists)
+                    {
+                        var settinFileString:String = '{\n\t"as3mxml.sdk.framework": "'+currentAirTarget.nativePath.split('\\').join('\\\\')+'"\n}';
+                        TextFile.save(settingFile,settinFileString);
+                    }
                 }
             }
 
