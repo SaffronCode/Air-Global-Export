@@ -1,0 +1,12 @@
+{
+	"configurations": [
+		{
+			"program": ".\\Project\\AdobeAirExporter-app.xml",
+			"request": "launch",
+			"preLaunchTask": "Adobe Animate: compile debug - AdobeAirExporter.fla",
+			"type": "swf",
+			"name": "Debug (desktop2)"
+		}
+	],
+	"version": "0.2.0"
+}

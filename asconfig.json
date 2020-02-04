@@ -1,17 +1,17 @@
 {
-	"files": [
-		".\\Project\\Main.as"
-	],
-	"compilerOptions": {
-		"source-path": [
-			"D:\\Sepehr\\gitHub\\sepehrEngine\\SaffronEngine",
-			"D:\\Sepehr\\gitHub\\ASPack"
-		],
-		"external-library-path": []
-	},
-	"config": "airmobile",
+	"type": "app",
 	"animateOptions": {
 		"file": ".\\Project\\AdobeAirExporter.fla"
 	},
-	"type": "app"
+	"config": "airmobile",
+	"compilerOptions": {
+		"external-library-path": [],
+		"source-path": [
+			"D:\\Sepehr\\gitHub\\sepehrEngine\\SaffronEngine",
+			"D:\\Sepehr\\gitHub\\ASPack"
+		]
+	},
+	"files": [
+		".\\Project\\Main.as"
+	]
 }
