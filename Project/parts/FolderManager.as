@@ -69,7 +69,7 @@
         private function removeItem(e:Event):void
         {
             var selectedItem:LinkItem = e.target as LinkItem;
-            Hints.ask('',"Do you whant to remove "+selectedItem.myLinkData.name+" from the list?",removeThisItem);
+            Hints.ask('',"Do you want to remove "+selectedItem.myLinkData.name+" from the list?",removeThisItem);
             function removeThisItem():void
             {
                 var index:int = int(selectedItem.myLinkData.id);

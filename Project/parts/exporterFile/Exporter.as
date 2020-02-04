@@ -457,7 +457,7 @@
 
                     currentExportParams.contents = embededFiles ;
 
-                    Hints.ask("Embed files",(embededFiles!=''?"Embeded files are ("+embededFiles+") ":'')+" Do you whant to add "+(embededFiles!=''?"More ":"")+" files?",addMoreFiles,null,buildExportparamsFile);
+                    Hints.ask("Embed files",(embededFiles!=''?"Embeded files are ("+embededFiles+") ":'')+" Do you want to add "+(embededFiles!=''?"more ":"")+" files?",addMoreFiles,null,buildExportparamsFile);
 
                     function addMoreFiles()
                     {

@@ -62,7 +62,7 @@ rem test part
 
 :environment_vars
 rem set the air compiler
-	echo The current air compiler directory is "%aircompiler%" if you whant to change it, please enter it below.
+	echo The current air compiler directory is "%aircompiler%" if you want to change it, please enter it below.
 	echo.
 	set new_aircompiler=.
 	set /p new_aircompiler=aircompiler: %=%
