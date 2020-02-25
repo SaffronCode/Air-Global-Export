@@ -116,9 +116,9 @@
                     {
                         Hints.selector("Select the output SWF file.",'',directories,onExportDirectorySelected);
                     }
-                    function onExportDirectorySelected(e:PopButtonData):void
+                    function onExportDirectorySelected(e:PopMenuEvent):void
                     {
-                        var selectedSWF:File = e.dynamicData as File ;
+                        var selectedSWF:File = e.buttonData as File ;
                         if(selectedSWF!=null)
                         {
                             saveExportSWFonBinDirectory(selectedSWF);
@@ -277,7 +277,7 @@
                             for(var i:int = 0 ; i<provfiles.length ; i++)
                             {
                                 var loadedProvision:String = TextFile.load(provfiles[i],50);
-                                if(loadedProvision.indexOf('<key>beta-reports-active</key>')!=-1)
+                                if(loadedProvision.indexOf('<key>beta-reports-active</key>')!=-1 || loadedProvision.indexOf('<string>production</string>')!=-1)
                                 {
                                     distProvisionButtons.push(new PopButtonData(provfiles[i].name,2,null,true,false,true,'',provfiles[i]));
                                 }
@@ -415,12 +415,12 @@
 
                         if(nativeFolders.length==0)
                         {
-                            findEmbededFiles();
+                            findPlistFileForiOS();
                         }
                         else if(nativeFolders.length==1)
                         {
                             setNativeAdress((nativeFolders[0] as PopButtonData).dynamicData as File) ;
-                            findEmbededFiles();
+                            findPlistFileForiOS();
                         }
                         else
                         {
@@ -432,7 +432,7 @@
                                 {
                                     setNativeAdress(selectedDirectory) ;
                                 }
-                                findEmbededFiles();
+                                findPlistFileForiOS();
                             }
                         }
 
@@ -441,6 +441,26 @@
                             var relativeTarget:String = FileManager.getRelatedTarget(exportDirectory,nativeFile);
                             currentExportParams.native_folder = "-extdir "+relativeTarget ;
                         }
+                    }
+                }
+
+
+
+                function findPlistFileForiOS():void
+                {
+                    FileManager.searchFor(exportDirectory,'*.plist',plistFilsFounded,null,false);// GoogleService-Info(14).plist)
+
+                    function plistFilsFounded(plistFiles:Vector.<File>):void
+                    {
+                        if(plistFiles.length>0)
+                        {
+                            currentExportParams.setPlistFileForiOS(plistFiles[0]);
+                        }
+                        else
+                        {
+                            currentExportParams.setPlistFileForiOS(null);
+                        }
+                        findEmbededFiles();
                     }
                 }
 

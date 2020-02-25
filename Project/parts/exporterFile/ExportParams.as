@@ -85,6 +85,22 @@ package parts.exporterFile
 
         
         public var contents:String='';//"Data AppIconsForPublish";
+        private var ios_defaults:String = "Default~iphone.png Default@2x~iphone.png Default-568h@2x~iphone.png Default-375w-667h@2x~iphone.png Default-414w-736h@3x~iphone.png Default-Landscape-414w-736h@3x~iphone.png Default-812h@3x~iphone.png Default-Landscape-812h@3x~iphone.png Default-Portrait~ipad.png Default-Landscape~ipad.png Default-Portrait@2x~ipad.png Default-Landscape@2x~ipad.png Default-Portrait-1112h@2x.png Default-Landscape-1112h@2x.png Default-Portrait@2x.png Default-Landscape@2x.png  Assets.car";
+        public var ios_contents:String=ios_defaults;//"Data AppIconsForPublish";
+
+        public function setPlistFileForiOS(file:File):void
+        {
+            if(file==null)
+            {
+                ios_contents = ios_defaults;
+            }
+            else
+            {
+                ios_contents = ios_defaults+" "+file.name ;
+            }
+        }
+
+
         public function ExportParams()
         {
             var networkInfo:NetworkInfo = NetworkInfo.networkInfo;
