@@ -70,6 +70,7 @@
             exportDirectory = null ;
             var projectFolder:File = projectList.getCurrentProjectFolder();
             Hints.pleaseWait();
+            trace("**** projectFolder : "+projectFolder.nativePath)
             FileManager.searchFor(projectFolder,'*.swf',swfFileFounded);
 
             function swfFileFounded(swfFileList:Vector.<File>):void
@@ -106,7 +107,7 @@
                     }
                     if(directories.length==0)
                     {
-                        swfFileFounded(new Vector.<File>())
+                        Hints.show("Your XML file is not refers to correct SWF file");
                     }
                     else if(directories.length==1)
                     {
@@ -274,10 +275,15 @@
                         {
                             var distProvisionButtons:Array = [] ;
                             var devProvisionButtons:Array = [] ;
+                            var hocProvisionButtons:Array = [] ;
                             for(var i:int = 0 ; i<provfiles.length ; i++)
                             {
                                 var loadedProvision:String = TextFile.load(provfiles[i],50);
-                                if(loadedProvision.indexOf('<key>beta-reports-active</key>')!=-1 || loadedProvision.indexOf('<string>production</string>')!=-1)
+                                if(loadedProvision.indexOf('AdHoc')!=-1)
+                                {
+                                    hocProvisionButtons.push(new PopButtonData(provfiles[i].name,2,null,true,false,true,'',provfiles[i]));
+                                }
+                                else if(loadedProvision.indexOf('<key>beta-reports-active</key>')!=-1 || loadedProvision.indexOf('<string>production</string>')!=-1)
                                 {
                                     distProvisionButtons.push(new PopButtonData(provfiles[i].name,2,null,true,false,true,'',provfiles[i]));
                                 }
@@ -315,12 +321,12 @@
                             {
                                 if(devProvisionButtons.length==0)
                                 {
-                                    findSWFandManifest();
+                                    selectAdHocPorv();
                                 }
                                 else if(devProvisionButtons.length==1)
                                 {
                                     currentExportParams.ios_dev_provision = (devProvisionButtons[0].dynamicData as File).nativePath ;
-                                    findSWFandManifest();
+                                    selectAdHocPorv();
                                 }
                                 else
                                 {
@@ -328,6 +334,28 @@
                                     function devSelected(e:PopMenuEvent):void
                                     {
                                         currentExportParams.ios_dev_provision = (e.buttonData as File).nativePath ;
+                                        selectAdHocPorv();
+                                    }
+                                }
+                            }
+
+                            function selectAdHocPorv():void
+                            {
+                                if(hocProvisionButtons.length==0)
+                                {
+                                    findSWFandManifest();
+                                }
+                                else if(hocProvisionButtons.length==1)
+                                {
+                                    currentExportParams.ios_adhoc_provision = (hocProvisionButtons[0].dynamicData as File).nativePath ;
+                                    findSWFandManifest();
+                                }
+                                else
+                                {
+                                    Hints.selector("Select the AdHoc provision file",'',hocProvisionButtons,adHocSelected);
+                                    function adHocSelected(e:PopMenuEvent):void
+                                    {
+                                        currentExportParams.ios_adhoc_provision = (e.buttonData as File).nativePath ;
                                         findSWFandManifest();
                                     }
                                 }

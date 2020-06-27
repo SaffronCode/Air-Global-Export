@@ -82,6 +82,7 @@ package parts.exporterFile
 
         public var ios_dist_provision:String = '' ;
         public var ios_dev_provision:String = '';
+        public var ios_adhoc_provision:String = '';
 
         
         public var contents:String='';//"Data AppIconsForPublish";
