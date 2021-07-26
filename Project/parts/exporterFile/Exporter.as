@@ -141,7 +141,7 @@
 
             private function copyAllBathFilesToExportDirectory():void
             {
-                FileManager.copyFolder(batDirectory,exportDirectory,false,null,true);
+                FileManager.copyFolder(batDirectory,exportDirectory,false,DevicePrefrence.isMac()?['bat']:['sh'],true);
             }
 
             private function updateExportParams():void

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <!-- 
 	Usage:
 
@@ -16,31 +16,31 @@
 	<text xml:lang="ja">Japanese App name goes here</text>
 	</name>
 -->
-<application xmlns="http://ns.adobe.com/air/application/32.0">
-  <id>com.saffroncodesdk.AdobeAirExporter</id>
-  <versionNumber>1.6.0</versionNumber>
-  <filename>Adobe Air Exporter</filename>
-  <description/>
-  <name>Adobe Air Exporter</name>
-  <copyright>saffroncodesdk.com</copyright>
-  <initialWindow>
-    <content>AdobeAirExporter.swf</content>
-    <systemChrome>none</systemChrome>
-    <transparent>false</transparent>
-    <visible>true</visible>
-    <fullScreen>false</fullScreen>
-    <aspectRatio>portrait</aspectRatio>
-    <renderMode>auto</renderMode>
-    <maximizable>true</maximizable>
-    <minimizable>true</minimizable>
-    <resizable>true</resizable>
-  </initialWindow>
-  <icon>
-    <image16x16>AppIconsForPublish/16.png</image16x16>
-    <image32x32>AppIconsForPublish/32.png</image32x32>
-    <image48x48>AppIconsForPublish/48.png</image48x48>
-    <image128x128>AppIconsForPublish/128.png</image128x128>
-  </icon>
-  <customUpdateUI>false</customUpdateUI>
-  <allowBrowserInvocation>false</allowBrowserInvocation>
+<application xmlns="http://ns.adobe.com/air/application/33.1">
+    <id>com.saffroncodesdk.AdobeAirExporter</id>
+    <versionNumber>1.7.0</versionNumber>
+    <filename>Adobe Air Exporter</filename>
+    <description></description>
+    <name>Adobe Air Exporter</name>
+    <copyright>saffroncodesdk.com</copyright>
+    <initialWindow>
+        <content>AdobeAirExporter.swf</content>
+        <systemChrome>none</systemChrome>
+        <transparent>false</transparent>
+        <visible>true</visible>
+        <fullScreen>false</fullScreen>
+        <aspectRatio>portrait</aspectRatio>
+        <renderMode>auto</renderMode>
+        <maximizable>true</maximizable>
+        <minimizable>true</minimizable>
+        <resizable>true</resizable>
+    </initialWindow>
+    <icon>
+        <image16x16>AppIconsForPublish/16.png</image16x16>
+        <image32x32>AppIconsForPublish/32.png</image32x32>
+        <image48x48>AppIconsForPublish/48.png</image48x48>
+        <image128x128>AppIconsForPublish/128.png</image128x128>
+    </icon>
+    <customUpdateUI>false</customUpdateUI>
+    <allowBrowserInvocation>false</allowBrowserInvocation>
 </application>

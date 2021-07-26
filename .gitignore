@@ -47,3 +47,4 @@ $RECYCLE.BIN/
 exportparams
 Project/RECOVER_AdobeAirExporter.fla
 *.tmp
+.DS_Store
