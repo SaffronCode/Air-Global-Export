@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <!-- 
 	Usage:
 
@@ -18,9 +18,9 @@
 -->
 <application xmlns="http://ns.adobe.com/air/application/33.1">
     <id>com.saffroncodesdk.AdobeAirExporter</id>
-    <versionNumber>1.7.0</versionNumber>
+    <versionNumber>1.7.1</versionNumber>
     <filename>Adobe Air Exporter</filename>
-    <description></description>
+    <description/>
     <name>Adobe Air Exporter</name>
     <copyright>saffroncodesdk.com</copyright>
     <initialWindow>

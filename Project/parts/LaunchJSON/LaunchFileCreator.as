@@ -1,11 +1,10 @@
-package parts.LaunchJSON
+﻿package parts.LaunchJSON
 {
     import flash.filesystem.File;
     import contents.TextFile;
     import contents.alert.Alert;
     import popForm.Hints;
     import popForm.PopButtonData;
-    import mx.skins.spark.PopUpButtonSkin;
     import popForm.PopMenuEvent;
 
     public class LaunchFileCreator

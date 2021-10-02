@@ -274,7 +274,7 @@ package parts.exporterFile
             var outPut:Array = [] ;
             for(var value:String in obj)
             {
-                outPut.push(value+'="'+obj[value]+'"');
+                outPut.push(value+'='+obj[value]+'');
             }
             outPut.sort();
             return outPut.join('\n') ;
